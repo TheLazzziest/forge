@@ -1,0 +1,209 @@
+{
+  // OCX v2 registry manifest for Superpowers
+  "$schema": "https://ocx.kdco.dev/schemas/v2/registry.json",
+  "name": "Superpowers",
+  "version": "5.1.0",
+  "author": "Jesse Vincent / Prime Radiant",
+  "openCode": "1.0.0",
+  "ocx": "1.0.16",
+  "namespace": "superpowers",
+  "components": [
+{
+    "name": "superpowers-plugin",
+    "type": "ocx:plugin",
+    "description": "Superpowers bootstrap - auto-registers skills, injects context",
+    "files": [
+        ".opencode/plugins/superpowers.js"
+    ],
+    "dependencies": [],
+    "opencode": {
+        "skills": {
+            "paths": [
+                "skills/superpowers"
+            ]
+        }
+    }
+},
+{
+    "name": "brainstorming",
+    "type": "ocx:skill",
+    "description": "Brainstorming skill for generating ideas and solutions",
+    "files": [
+        "skills/brainstorming/SKILL.md",
+        "skills/brainstorming/visual-companion.md",
+        "skills/brainstorming/spec-document-reviewer-prompt.md",
+        "skills/brainstorming/scripts/server.cjs",
+        "skills/brainstorming/scripts/helper.js",
+        "skills/brainstorming/scripts/frame-template.html",
+        "skills/brainstorming/scripts/start-server.sh",
+        "skills/brainstorming/scripts/stop-server.sh"
+    ],
+    "dependencies": []
+},
+{
+    "name": "dispatching-parallel-agents",
+    "type": "ocx:skill",
+    "description": "Dispatching parallel agents skill for concurrent task execution",
+    "files": [
+        "skills/dispatching-parallel-agents/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "executing-plans",
+    "type": "ocx:skill",
+    "description": "Executing plans skill for implementing planned work",
+    "files": [
+        "skills/executing-plans/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "finishing-a-development-branch",
+    "type": "ocx:skill",
+    "description": "Finishing a development branch skill for wrapping up work",
+    "files": [
+        "skills/finishing-a-development-branch/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "receiving-code-review",
+    "type": "ocx:skill",
+    "description": "Receiving code review skill for handling feedback",
+    "files": [
+        "skills/receiving-code-review/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "requesting-code-review",
+    "type": "ocx:skill",
+    "description": "Requesting code review skill for initiating reviews",
+    "files": [
+        "skills/requesting-code-review/SKILL.md",
+        "skills/requesting-code-review/code-reviewer.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "subagent-driven-development",
+    "type": "ocx:skill",
+    "description": "Subagent-driven development skill for delegating work",
+    "files": [
+        "skills/subagent-driven-development/SKILL.md",
+        "skills/subagent-driven-development/implementer-prompt.md",
+        "skills/subagent-driven-development/spec-reviewer-prompt.md",
+        "skills/subagent-driven-development/code-quality-reviewer-prompt.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "systematic-debugging",
+    "type": "ocx:skill",
+    "description": "Systematic debugging skill for methodical issue resolution",
+    "files": [
+        "skills/systematic-debugging/SKILL.md",
+        "skills/systematic-debugging/root-cause-tracing.md",
+        "skills/systematic-debugging/defense-in-depth.md",
+        "skills/systematic-debugging/condition-based-waiting.md",
+        "skills/systematic-debugging/condition-based-waiting-example.ts",
+        "skills/systematic-debugging/test-academic.md",
+        "skills/systematic-debugging/test-pressure-1.md",
+        "skills/systematic-debugging/test-pressure-2.md",
+        "skills/systematic-debugging/test-pressure-3.md",
+        "skills/systematic-debugging/find-polluter.sh",
+        "skills/systematic-debugging/CREATION-LOG.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "test-driven-development",
+    "type": "ocx:skill",
+    "description": "Test-driven development skill for writing tests first",
+    "files": [
+        "skills/test-driven-development/SKILL.md",
+        "skills/test-driven-development/testing-anti-patterns.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "using-git-worktrees",
+    "type": "ocx:skill",
+    "description": "Using git worktrees skill for isolated development",
+    "files": [
+        "skills/using-git-worktrees/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "using-superpowers",
+    "type": "ocx:skill",
+    "description": "Using superpowers skill for leveraging the methodology",
+    "files": [
+        "skills/using-superpowers/SKILL.md",
+        "skills/using-superpowers/references/codex-tools.md",
+        "skills/using-superpowers/references/copilot-tools.md",
+        "skills/using-superpowers/references/gemini-tools.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "verification-before-completion",
+    "type": "ocx:skill",
+    "description": "Verification before completion skill for final checks",
+    "files": [
+        "skills/verification-before-completion/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "writing-plans",
+    "type": "ocx:skill",
+    "description": "Writing plans skill for creating implementation plans",
+    "files": [
+        "skills/writing-plans/SKILL.md",
+        "skills/writing-plans/plan-document-reviewer-prompt.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "writing-skills",
+    "type": "ocx:skill",
+    "description": "Writing skills skill for creating effective skills",
+    "files": [
+        "skills/writing-skills/SKILL.md",
+        "skills/writing-skills/persuasion-principles.md",
+        "skills/writing-skills/anthropic-best-practices.md",
+        "skills/writing-skills/testing-skills-with-subagents.md",
+        "skills/writing-skills/graphviz-conventions.dot",
+        "skills/writing-skills/render-graphs.js",
+        "skills/writing-skills/examples/CLAUDE_MD_TESTING.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "superpowers",
+    "type": "ocx:bundle",
+    "description": "Complete Superpowers methodology — all 14 skills + plugin",
+    "dependencies": [
+        "superpowers-plugin",
+        "brainstorming",
+        "dispatching-parallel-agents",
+        "executing-plans",
+        "finishing-a-development-branch",
+        "receiving-code-review",
+        "requesting-code-review",
+        "subagent-driven-development",
+        "systematic-debugging",
+        "test-driven-development",
+        "using-git-worktrees",
+        "using-superpowers",
+        "verification-before-completion",
+        "writing-plans",
+        "writing-skills"
+    ],
+    "files": []
+}
+  ]
+}
