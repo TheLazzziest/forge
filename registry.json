@@ -23,6 +23,42 @@
       }
     },
     {
+      "name": "implementer",
+      "type": "agent",
+      "description": "Subagent that implements tasks from plans with self-review and escalation",
+      "files": [
+        "files/agents/implementer.md"
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "spec-reviewer",
+      "type": "agent",
+      "description": "Verifies implementations match specifications — checks missing requirements, extra work, and misunderstandings",
+      "files": [
+        "files/agents/spec-reviewer.md"
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "code-quality-reviewer",
+      "type": "agent",
+      "description": "Reviews code quality after spec compliance passes — delegates detailed review to code-reviewer",
+      "files": [
+        "files/agents/code-quality-reviewer.md"
+      ],
+      "dependencies": ["code-reviewer"]
+    },
+    {
+      "name": "code-reviewer",
+      "type": "agent",
+      "description": "Senior code reviewer checking plan alignment, code quality, architecture, testing, and production readiness",
+      "files": [
+        "files/agents/code-reviewer.md"
+      ],
+      "dependencies": []
+    },
+    {
       "name": "brainstorming",
       "type": "skill",
       "description": "Brainstorming skill for generating ideas and solutions",
@@ -203,6 +239,5 @@
       ],
       "files": []
     }
-  ],
-  
+  ]
 }
