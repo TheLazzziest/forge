@@ -8,7 +8,7 @@
   "components": [
     {
       "name": "superpowers-plugin",
-      "type": "ocx:plugin",
+      "type": "plugin",
       "description": "Superpowers bootstrap - auto-registers skills, injects context",
       "files": [
         ".opencode/plugins/superpowers.js"
@@ -24,7 +24,7 @@
     },
     {
       "name": "brainstorming",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Brainstorming skill for generating ideas and solutions",
       "files": [
         "skills/brainstorming/SKILL.md",
@@ -40,7 +40,7 @@
     },
     {
       "name": "dispatching-parallel-agents",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Dispatching parallel agents skill for concurrent task execution",
       "files": [
         "skills/dispatching-parallel-agents/SKILL.md"
@@ -49,7 +49,7 @@
     },
     {
       "name": "executing-plans",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Executing plans skill for implementing planned work",
       "files": [
         "skills/executing-plans/SKILL.md"
@@ -58,7 +58,7 @@
     },
     {
       "name": "finishing-a-development-branch",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Finishing a development branch skill for wrapping up work",
       "files": [
         "skills/finishing-a-development-branch/SKILL.md"
@@ -67,7 +67,7 @@
     },
     {
       "name": "receiving-code-review",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Receiving code review skill for handling feedback",
       "files": [
         "skills/receiving-code-review/SKILL.md"
@@ -76,7 +76,7 @@
     },
     {
       "name": "requesting-code-review",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Requesting code review skill for initiating reviews",
       "files": [
         "skills/requesting-code-review/SKILL.md",
@@ -86,7 +86,7 @@
     },
     {
       "name": "subagent-driven-development",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Subagent-driven development skill for delegating work",
       "files": [
         "skills/subagent-driven-development/SKILL.md",
@@ -98,7 +98,7 @@
     },
     {
       "name": "systematic-debugging",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Systematic debugging skill for methodical issue resolution",
       "files": [
         "skills/systematic-debugging/SKILL.md",
@@ -117,7 +117,7 @@
     },
     {
       "name": "test-driven-development",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Test-driven development skill for writing tests first",
       "files": [
         "skills/test-driven-development/SKILL.md",
@@ -127,7 +127,7 @@
     },
     {
       "name": "using-git-worktrees",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Using git worktrees skill for isolated development",
       "files": [
         "skills/using-git-worktrees/SKILL.md"
@@ -136,7 +136,7 @@
     },
     {
       "name": "using-superpowers",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Using superpowers skill for leveraging the methodology",
       "files": [
         "skills/using-superpowers/SKILL.md",
@@ -148,7 +148,7 @@
     },
     {
       "name": "verification-before-completion",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Verification before completion skill for final checks",
       "files": [
         "skills/verification-before-completion/SKILL.md"
@@ -157,7 +157,7 @@
     },
     {
       "name": "writing-plans",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Writing plans skill for creating implementation plans",
       "files": [
         "skills/writing-plans/SKILL.md",
@@ -167,7 +167,7 @@
     },
     {
       "name": "writing-skills",
-      "type": "ocx:skill",
+      "type": "skill",
       "description": "Writing skills skill for creating effective skills",
       "files": [
         "skills/writing-skills/SKILL.md",
@@ -182,7 +182,7 @@
     },
     {
       "name": "superpowers",
-      "type": "ocx:bundle",
+      "type": "bundle",
       "description": "Complete Superpowers methodology — all 14 skills + plugin",
       "dependencies": [
         "superpowers-plugin",
@@ -204,5 +204,5 @@
       "files": []
     }
   ],
-  "namespace": "superpowers"
+  
 }
