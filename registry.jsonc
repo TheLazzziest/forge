@@ -5,12 +5,13 @@
   "version": "5.1.0",
   "author": "Jesse Vincent / Prime Radiant",
   "openCode": "1.0.0",
+  "namespace": "superpowers",
   "ocx": "1.0.16",
   
   "components": [
 {
     "name": "superpowers-plugin",
-    "type": "plugin",
+    "type": "ocx:plugin",
     "description": "Superpowers bootstrap - auto-registers skills, injects context",
     "files": [
         ".opencode/plugins/superpowers.js"
@@ -26,43 +27,43 @@
 },
 {
     "name": "implementer",
-    "type": "agent",
+    "type": "ocx:agent",
     "description": "Subagent that implements tasks from plans with self-review and escalation",
     "files": [
-        "files/agents/implementer.md"
+        "agents/implementer.md"
     ],
     "dependencies": []
 },
 {
     "name": "spec-reviewer",
-    "type": "agent",
+    "type": "ocx:agent",
     "description": "Verifies implementations match specifications — checks missing requirements, extra work, and misunderstandings",
     "files": [
-        "files/agents/spec-reviewer.md"
+        "agents/spec-reviewer.md"
     ],
     "dependencies": []
 },
 {
     "name": "code-quality-reviewer",
-    "type": "agent",
+    "type": "ocx:agent",
     "description": "Reviews code quality after spec compliance passes — delegates detailed review to code-reviewer",
     "files": [
-        "files/agents/code-quality-reviewer.md"
+        "agents/code-quality-reviewer.md"
     ],
     "dependencies": ["code-reviewer"]
 },
 {
     "name": "code-reviewer",
-    "type": "agent",
+    "type": "ocx:agent",
     "description": "Senior code reviewer checking plan alignment, code quality, architecture, testing, and production readiness",
     "files": [
-        "files/agents/code-reviewer.md"
+        "agents/code-reviewer.md"
     ],
     "dependencies": []
 },
 {
     "name": "brainstorming",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Brainstorming skill for generating ideas and solutions",
     "files": [
         "skills/brainstorming/SKILL.md",
@@ -78,7 +79,7 @@
 },
 {
     "name": "dispatching-parallel-agents",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Dispatching parallel agents skill for concurrent task execution",
     "files": [
         "skills/dispatching-parallel-agents/SKILL.md"
@@ -87,7 +88,7 @@
 },
 {
     "name": "executing-plans",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Executing plans skill for implementing planned work",
     "files": [
         "skills/executing-plans/SKILL.md"
@@ -96,7 +97,7 @@
 },
 {
     "name": "finishing-a-development-branch",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Finishing a development branch skill for wrapping up work",
     "files": [
         "skills/finishing-a-development-branch/SKILL.md"
@@ -105,7 +106,7 @@
 },
 {
     "name": "receiving-code-review",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Receiving code review skill for handling feedback",
     "files": [
         "skills/receiving-code-review/SKILL.md"
@@ -114,7 +115,7 @@
 },
 {
     "name": "requesting-code-review",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Requesting code review skill for initiating reviews",
     "files": [
         "skills/requesting-code-review/SKILL.md",
@@ -124,7 +125,7 @@
 },
 {
     "name": "subagent-driven-development",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Subagent-driven development skill for delegating work",
     "files": [
         "skills/subagent-driven-development/SKILL.md",
@@ -136,7 +137,7 @@
 },
 {
     "name": "systematic-debugging",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Systematic debugging skill for methodical issue resolution",
     "files": [
         "skills/systematic-debugging/SKILL.md",
@@ -155,7 +156,7 @@
 },
 {
     "name": "test-driven-development",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Test-driven development skill for writing tests first",
     "files": [
         "skills/test-driven-development/SKILL.md",
@@ -165,7 +166,7 @@
 },
 {
     "name": "using-git-worktrees",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Using git worktrees skill for isolated development",
     "files": [
         "skills/using-git-worktrees/SKILL.md"
@@ -174,7 +175,7 @@
 },
 {
     "name": "using-superpowers",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Using superpowers skill for leveraging the methodology",
     "files": [
         "skills/using-superpowers/SKILL.md",
@@ -186,7 +187,7 @@
 },
 {
     "name": "verification-before-completion",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Verification before completion skill for final checks",
     "files": [
         "skills/verification-before-completion/SKILL.md"
@@ -195,7 +196,7 @@
 },
 {
     "name": "writing-plans",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Writing plans skill for creating implementation plans",
     "files": [
         "skills/writing-plans/SKILL.md",
@@ -205,7 +206,7 @@
 },
 {
     "name": "writing-skills",
-    "type": "skill",
+    "type": "ocx:skill",
     "description": "Writing skills skill for creating effective skills",
     "files": [
         "skills/writing-skills/SKILL.md",
@@ -220,7 +221,7 @@
 },
 {
     "name": "superpowers",
-    "type": "bundle",
+    "type": "ocx:bundle",
     "description": "Complete Superpowers methodology — all 14 skills + plugin",
     "dependencies": [
         "superpowers-plugin",
