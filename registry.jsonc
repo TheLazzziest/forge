@@ -306,10 +306,11 @@
     "name": "developer",
     "type": "profile",
     "description": "Developer profile with task-type routing to Superpowers skills",
-    "files": [
-        "components/developer/AGENTS.md",
-        "components/developer/ocx.jsonc"
-    ],
+     "files": [
+         "components/developer/AGENTS.md",
+         "components/developer/ocx.jsonc",
+         "components/developer/opencode.jsonc"
+     ],
     "dependencies": [
         "implementer", "spec-reviewer", "code-quality-reviewer", "code-reviewer",
         "brainstorming", "dispatching-parallel-agents", "executing-plans",
