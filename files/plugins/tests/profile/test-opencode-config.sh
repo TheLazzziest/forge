@@ -71,7 +71,7 @@ try {
 // Check 5: ocx.jsonc has registries.superpowers.url set to https://github.com/obra/superpowers
 try {
   const ocx1 = parseJSONC(fs.readFileSync('files/components/developer/ocx.jsonc', 'utf8'));
-  if (ocx1.registries && ocx1.registries.superpowers && ocx1.registries.superpowers.url === 'https://github.com/obra/superpowers') {
+  if (ocx1.registries && ocx1.registries.superpowers && ocx1.registries.superpowers.url === 'https://github.com/TheLazzziest/forge') {
     console.log('Check 5: PASS - registries.superpowers.url is correct');
     passed++;
   } else {
@@ -85,7 +85,7 @@ try {
 try {
   const registry = parseJSONC(fs.readFileSync('registry.jsonc', 'utf8'));
   const dev = registry.components.find(c => c.name === 'developer');
-  const expected = 'files/components/developer/';
+  const expected = 'components/developer/';
   const allCorrect = dev && dev.files && dev.files.every(f => f.startsWith(expected));
   if (allCorrect) {
     console.log('Check 6: PASS - developer profile files path is correct');
