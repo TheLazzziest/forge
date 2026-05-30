@@ -54,4 +54,9 @@ else
   printf '{\n  "additionalContext": "%s"\n}\n' "$session_context"
 fi
 
+# Tool PATH checks — warnings only, never fail
+( command -v rtk >/dev/null 2>&1 || echo "[superpowers] rtk not found — install: brew install rtk (macOS) or curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh (Linux)" >&2 ) || true
+( test -f "$HOME/.config/opencode/plugins/rtk.ts" || echo "[superpowers] rtk plugin missing — after installing rtk, run: rtk init -g --opencode" >&2 ) || true
+( command -v beads >/dev/null 2>&1 || echo "[superpowers] beads not found — install: brew install beads (macOS) or curl -fsSL https://raw.githubusercontent.com/gastownhall/beads/main/scripts/install.sh | bash (Linux)" >&2 ) || true
+
 exit 0

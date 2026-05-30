@@ -22,5 +22,10 @@
       "mode": "subagent",
       "temperature": 0.1
     }
+  },
+  "mcp": {
+    // Requires EXA_API_KEY env var — get from https://dashboard.exa.ai/api-keys
+    "exa": { "type": "remote", "url": "https://mcp.exa.ai/mcp", "enabled": true },
+    "codegraph": { "command": "npx", "args": ["-y", "@colbymchenry/codegraph", "serve", "--mcp"] }
   }
 }

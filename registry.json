@@ -188,6 +188,16 @@
       "dependencies": []
     },
     {
+      "name": "fpf-reasoning",
+      "type": "skill",
+      "description": "First Principles Framework — structured reasoning for complex engineering, research, and mixed human/AI work with bounded contexts, evidence discipline, and multi-stakeholder alignment",
+      "files": [
+        "skills/fpf-reasoning/SKILL.md",
+        "skills/fpf-reasoning/CONCEPTS.md"
+      ],
+      "dependencies": []
+    },
+    {
       "name": "receiving-code-review",
       "type": "skill",
       "description": "Receiving code review skill for handling feedback",
@@ -320,6 +330,7 @@
         "dispatching-parallel-agents",
         "executing-plans",
         "finishing-a-development-branch",
+        "fpf-reasoning",
         "receiving-code-review",
         "requesting-code-review",
         "subagent-driven-development",
