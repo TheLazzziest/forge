@@ -19,7 +19,7 @@
     "opencode": {
         "skills": {
             "paths": [
-                "skills/superpowers"
+                "files/skills/superpowers"
             ]
         }
     }
