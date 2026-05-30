@@ -4,10 +4,28 @@ Superpowers is a complete software development methodology for your coding agent
 
 ## Quickstart
 
-This is an OCX registry. Install via OCX CLI:
+Install the Superpowers developer profile using OCX:
+
+```bash
+ocx profile add developer --source forge/developer --from https://github.com/TheLazzziest/forge --global
+```
+
+Or install locally as a registry:
 
 ```bash
 npx ocx install .
+```
+
+Then launch OpenCode with the profile:
+
+```bash
+ocx oc -p developer
+```
+
+Want to customize? Clone and modify:
+
+```bash
+ocx profile add my-profile --clone developer --global
 ```
 
 ## How it works

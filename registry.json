@@ -307,9 +307,9 @@
       "type": "profile",
       "description": "Developer profile with task-type routing to Superpowers skills",
       "files": [
-         "components/developer/AGENTS.md",
-         "components/developer/ocx.jsonc",
-         "components/developer/opencode.jsonc"
+         "files/components/developer/AGENTS.md",
+         "files/components/developer/ocx.jsonc",
+         "files/components/developer/opencode.jsonc"
       ],
       "dependencies": [
         "implementer",
@@ -330,32 +330,8 @@
         "verification-before-completion",
         "writing-plans",
         "writing-skills",
-        "superpowers-plugin",
-        "superpowers"
+        "superpowers-plugin"
       ]
-    },
-    {
-      "name": "superpowers",
-      "type": "bundle",
-      "description": "Complete Superpowers methodology \u2014 all 14 skills + plugin",
-      "dependencies": [
-        "superpowers-plugin",
-        "brainstorming",
-        "dispatching-parallel-agents",
-        "executing-plans",
-        "finishing-a-development-branch",
-        "receiving-code-review",
-        "requesting-code-review",
-        "subagent-driven-development",
-        "systematic-debugging",
-        "test-driven-development",
-        "using-git-worktrees",
-        "using-superpowers",
-        "verification-before-completion",
-        "writing-plans",
-        "writing-skills"
-      ],
-      "files": []
     }
   ]
 }
