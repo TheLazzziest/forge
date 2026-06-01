@@ -145,6 +145,15 @@
     "dependencies": []
 },
 {
+    "name": "bmad-awareness",
+    "type": "skill",
+    "description": "BMad (Build More Architect Dreams) methodology awareness — recognize _bmad/ directory, borrow compatible concepts, Superpowers remains primary",
+    "files": [
+        "skills/bmad-awareness/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
     "name": "brainstorming",
     "type": "skill",
     "description": "Brainstorming skill for generating ideas and solutions",
@@ -323,7 +332,7 @@
      ],
     "dependencies": [
         "implementer", "spec-reviewer", "code-quality-reviewer", "code-reviewer",
-        "brainstorming", "dispatching-parallel-agents", "executing-plans",
+        "bmad-awareness", "brainstorming", "dispatching-parallel-agents", "executing-plans",
         "finishing-a-development-branch", "fpf-reasoning", "receiving-code-review",
         "requesting-code-review", "subagent-driven-development",
         "systematic-debugging", "test-driven-development",
