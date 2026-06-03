@@ -1,46 +1,55 @@
 {
-	// OCX Registry Starter Template
-	// Use this as a starting point for creating your own component registry
-	//
-	// Schema reference: https://ocx.kdco.dev/schemas/v2/registry.json
-	// Documentation: https://github.com/kdcokenny/ocx
+  // OCX Registry Starter Template
+  // Use this as a starting point for creating your own component registry
+  //
+  // Schema reference: https://ocx.kdco.dev/schemas/v2/registry.json
+  // Documentation: https://github.com/kdcokenny/ocx
 
-	"$schema": "https://ocx.kdco.dev/schemas/v2/registry.json",
-	"name": "Forge",
-	// Registry refs use the alias chosen by users via:
-	// ocx registry add <url> --name <alias>
-	"version": "0.0.1",
-	"author": "TheLazzziest",
+  "$schema": "https://ocx.kdco.dev/schemas/v2/registry.json",
+  "name": "Forge",
+  // Registry refs use the alias chosen by users via:
+  // ocx registry add <url> --name <alias>
+  "version": "0.0.1",
+  "author": "TheLazzziest",
 
-	// Compatibility versions
-	"opencode": "1.0.0", // Minimum OpenCode version required
-	"ocx": "1.0.16", // Minimum OCX CLI version required
+  // Compatibility versions
+  "opencode": "1.0.0", // Minimum OpenCode version required
+  "ocx": "1.0.16", // Minimum OCX CLI version required
 
-	"components": [
-		// Add your components here
-		// Supported types:
-		//   - skill     - Knowledge modules (markdown files)
-		//   - agent     - AI personas with custom prompts
-		//   - plugin    - TypeScript plugins that extend functionality
-		//   - command   - User-invokable commands
-		//   - tool      - Custom tool implementations
-		//   - bundle    - Collections of related components
-		//   - profile   - Shareable profile configuration
-		{
-			"name": "hello-world",
-			"type": "skill",
-			"description": "An example skill to get you started",
-			"files": ["skills/hello-world/SKILL.md"]
-		},
-		{
-			"name": "developer",
-			"type": "profile",
-			"description": "Developer profile for Forge — iterative build from minimal shell",
-			"files": [
-				{ "path": "profiles/developer/AGENTS.md", "target": "AGENTS.md" },
-				{ "path": "profiles/developer/ocx.jsonc", "target": "ocx.jsonc" },
-				{ "path": "profiles/developer/opencode.jsonc", "target": "opencode.jsonc" }
-			]
-		}
-	]
+  "components": [
+    // Add your components here
+    // Supported types:
+    //   - skill     - Knowledge modules (markdown files)
+    //   - agent     - AI personas with custom prompts
+    //   - plugin    - TypeScript plugins that extend functionality
+    //   - command   - User-invokable commands
+    //   - tool      - Custom tool implementations
+    //   - bundle    - Collections of related components
+    //   - profile   - Shareable profile configuration
+    {
+      "name": "hello-world",
+      "type": "skill",
+      "description": "An example skill to get you started",
+      "files": ["skills/hello-world/SKILL.md"],
+    },
+    {
+      "name": "developer",
+      "type": "profile",
+      "description": "Developer profile for Forge — iterative build from minimal shell",
+      "files": [
+        {
+          "path": "profiles/developer/AGENTS.md",
+          "target": "profiles/developer/AGENTS.md",
+        },
+        {
+          "path": "profiles/developer/ocx.jsonc",
+          "target": "profiles/developer/ocx.jsonc",
+        },
+        {
+          "path": "profiles/developer/opencode.jsonc",
+          "target": "profiles/developer/opencode.jsonc",
+        },
+      ],
+    },
+  ],
 }
