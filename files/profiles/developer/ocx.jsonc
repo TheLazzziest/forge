@@ -4,5 +4,8 @@
   // Exclude patterns: files matching these globs are excluded from build
   "$schema": "https://ocx.kdco.dev/schemas/v2/ocx.json",
   "registries": {},
-  "exclude": []
+  "exclude": [],
+  "dependencies": {
+    "skills": ["files/skills/fpf"],
+  },
 }

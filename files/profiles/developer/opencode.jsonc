@@ -1,6 +1,7 @@
 {
   // OpenCode configuration for developer profile
-  // Agents, tools, MCP servers, permissions — to be populated
+  // FPF is the reasoning backbone (loaded via OCX profile install)
+  // Domain-specific skills loaded on top
   "$schema": "https://opencode.ai/config.json",
   "agent": {},
   "mcp": {},
