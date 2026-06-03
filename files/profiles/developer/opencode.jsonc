@@ -1,0 +1,9 @@
+{
+  // OpenCode configuration for developer profile
+  // Agents, tools, MCP servers, permissions — to be populated
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {},
+  "mcp": {},
+  "tools": {},
+  "permission": {}
+}

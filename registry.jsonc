@@ -31,6 +31,16 @@
 			"type": "skill",
 			"description": "An example skill to get you started",
 			"files": ["skills/hello-world/SKILL.md"]
+		},
+		{
+			"name": "developer",
+			"type": "profile",
+			"description": "Developer profile for Forge — iterative build from minimal shell",
+			"files": [
+				{ "path": "profiles/developer/AGENTS.md", "target": "AGENTS.md" },
+				{ "path": "profiles/developer/ocx.jsonc", "target": "ocx.jsonc" },
+				{ "path": "profiles/developer/opencode.jsonc", "target": "opencode.jsonc" }
+			]
 		}
 	]
 }
