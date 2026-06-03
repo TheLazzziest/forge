@@ -1,0 +1,345 @@
+{
+  // OCX v2 registry manifest for Superpowers
+  "$schema": "https://ocx.kdco.dev/schemas/v2/registry.json",
+  "name": "Superpowers",
+  "version": "5.1.0",
+  "author": "Jesse Vincent / Prime Radiant",
+  "openCode": "1.0.0",
+  "ocx": "1.0.16",
+  
+  "components": [
+{
+    "name": "superpowers-plugin",
+    "type": "plugin",
+    "description": "Superpowers bootstrap - auto-registers skills, injects context",
+    "files": [
+        ".opencode/plugins/superpowers.js"
+    ],
+    "dependencies": [],
+    "opencode": {
+        "skills": {
+            "paths": [
+                "files/skills/superpowers"
+            ]
+        }
+    }
+},
+{
+    "name": "superpowers-resources",
+    "type": "plugin",
+    "description": "Superpowers operational resources — hooks, scripts, assets, tests, docs",
+    "files": [
+        "plugins/assets/app-icon.png",
+        "plugins/assets/superpowers-small.svg",
+        "plugins/docs/README.opencode.md",
+        "plugins/docs/plans/2025-11-22-opencode-support-design.md",
+        "plugins/docs/plans/2025-11-22-opencode-support-implementation.md",
+        "plugins/docs/plans/2025-11-28-skills-improvements-from-user-feedback.md",
+        "plugins/docs/plans/2026-01-17-visual-brainstorming.md",
+        "plugins/docs/superpowers/plans/2026-01-22-document-review-system.md",
+        "plugins/docs/superpowers/plans/2026-02-19-visual-brainstorming-refactor.md",
+        "plugins/docs/superpowers/plans/2026-03-11-zero-dep-brainstorm-server.md",
+        "plugins/docs/superpowers/plans/2026-03-23-codex-app-compatibility.md",
+        "plugins/docs/superpowers/plans/2026-04-06-worktree-rototill.md",
+        "plugins/docs/superpowers/specs/2026-01-22-document-review-system-design.md",
+        "plugins/docs/superpowers/specs/2026-02-19-visual-brainstorming-refactor-design.md",
+        "plugins/docs/superpowers/specs/2026-03-11-zero-dep-brainstorm-server-design.md",
+        "plugins/docs/superpowers/specs/2026-03-23-codex-app-compatibility-design.md",
+        "plugins/docs/superpowers/specs/2026-04-06-worktree-rototill-design.md",
+        "plugins/docs/testing.md",
+        "plugins/docs/windows/polyglot-hooks.md",
+        "plugins/hooks/hooks-cursor.json",
+        "plugins/hooks/hooks.json",
+        "plugins/hooks/run-hook.cmd",
+        "plugins/hooks/session-start",
+        "plugins/scripts/bump-version.sh",
+        "plugins/tests/brainstorm-server/package-lock.json",
+        "plugins/tests/brainstorm-server/package.json",
+        "plugins/tests/brainstorm-server/server.test.js",
+        "plugins/tests/brainstorm-server/windows-lifecycle.test.sh",
+        "plugins/tests/brainstorm-server/ws-protocol.test.js",
+        "plugins/tests/claude-code/README.md",
+        "plugins/tests/claude-code/analyze-token-usage.py",
+        "plugins/tests/claude-code/run-skill-tests.sh",
+        "plugins/tests/claude-code/test-document-review-system.sh",
+        "plugins/tests/claude-code/test-helpers.sh",
+        "plugins/tests/claude-code/test-requesting-code-review.sh",
+        "plugins/tests/claude-code/test-subagent-driven-development-integration.sh",
+        "plugins/tests/claude-code/test-subagent-driven-development.sh",
+        "plugins/tests/claude-code/test-worktree-native-preference.sh",
+        "plugins/tests/codex-plugin-sync/test-sync-to-codex-plugin.sh",
+        "plugins/tests/explicit-skill-requests/prompts/action-oriented.txt",
+        "plugins/tests/explicit-skill-requests/prompts/after-planning-flow.txt",
+        "plugins/tests/explicit-skill-requests/prompts/claude-suggested-it.txt",
+        "plugins/tests/explicit-skill-requests/prompts/i-know-what-sdd-means.txt",
+        "plugins/tests/explicit-skill-requests/prompts/mid-conversation-execute-plan.txt",
+        "plugins/tests/explicit-skill-requests/prompts/please-use-brainstorming.txt",
+        "plugins/tests/explicit-skill-requests/prompts/skip-formalities.txt",
+        "plugins/tests/explicit-skill-requests/prompts/subagent-driven-development-please.txt",
+        "plugins/tests/explicit-skill-requests/prompts/use-systematic-debugging.txt",
+        "plugins/tests/explicit-skill-requests/run-all.sh",
+        "plugins/tests/explicit-skill-requests/run-claude-describes-sdd.sh",
+        "plugins/tests/explicit-skill-requests/run-extended-multiturn-test.sh",
+        "plugins/tests/explicit-skill-requests/run-haiku-test.sh",
+        "plugins/tests/explicit-skill-requests/run-multiturn-test.sh",
+        "plugins/tests/explicit-skill-requests/run-test.sh",
+        "plugins/tests/opencode/run-tests.sh",
+        "plugins/tests/opencode/setup.sh",
+        "plugins/tests/opencode/test-bootstrap-caching.mjs",
+        "plugins/tests/opencode/test-bootstrap-caching.sh",
+        "plugins/tests/opencode/test-plugin-loading.sh",
+        "plugins/tests/opencode/test-priority.sh",
+        "plugins/tests/opencode/test-tools.sh",
+        "plugins/tests/skill-triggering/prompts/dispatching-parallel-agents.txt",
+        "plugins/tests/skill-triggering/prompts/executing-plans.txt",
+        "plugins/tests/skill-triggering/prompts/requesting-code-review.txt",
+        "plugins/tests/skill-triggering/prompts/systematic-debugging.txt",
+        "plugins/tests/skill-triggering/prompts/test-driven-development.txt",
+        "plugins/tests/skill-triggering/prompts/writing-plans.txt",
+        "plugins/tests/skill-triggering/run-all.sh",
+        "plugins/tests/skill-triggering/run-test.sh",
+        "plugins/tests/subagent-driven-dev/go-fractals/design.md",
+        "plugins/tests/subagent-driven-dev/go-fractals/plan.md",
+        "plugins/tests/subagent-driven-dev/go-fractals/scaffold.sh",
+        "plugins/tests/subagent-driven-dev/run-test.sh",
+        "plugins/tests/subagent-driven-dev/svelte-todo/design.md",
+        "plugins/tests/subagent-driven-dev/svelte-todo/plan.md",
+        "plugins/tests/subagent-driven-dev/svelte-todo/scaffold.sh"
+    ],
+    "dependencies": []
+},
+{
+    "name": "implementer",
+    "type": "agent",
+    "description": "Subagent that implements tasks from plans with self-review and escalation",
+    "files": [
+        "agents/implementer.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "spec-reviewer",
+    "type": "agent",
+    "description": "Verifies implementations match specifications — checks missing requirements, extra work, and misunderstandings",
+    "files": [
+        "agents/spec-reviewer.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "code-quality-reviewer",
+    "type": "agent",
+    "description": "Reviews code quality after spec compliance passes — delegates detailed review to code-reviewer",
+    "files": [
+        "agents/code-quality-reviewer.md"
+    ],
+    "dependencies": ["code-reviewer"]
+},
+{
+    "name": "code-reviewer",
+    "type": "agent",
+    "description": "Senior code reviewer checking plan alignment, code quality, architecture, testing, and production readiness",
+    "files": [
+        "agents/code-reviewer.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "bmad-awareness",
+    "type": "skill",
+    "description": "BMad (Build More Architect Dreams) methodology awareness — recognize _bmad/ directory, borrow compatible concepts, Superpowers remains primary",
+    "files": [
+        "skills/bmad-awareness/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "brainstorming",
+    "type": "skill",
+    "description": "Brainstorming skill for generating ideas and solutions",
+    "files": [
+        "skills/brainstorming/SKILL.md",
+        "skills/brainstorming/visual-companion.md",
+        "skills/brainstorming/spec-document-reviewer-prompt.md",
+        "skills/brainstorming/scripts/server.cjs",
+        "skills/brainstorming/scripts/helper.js",
+        "skills/brainstorming/scripts/frame-template.html",
+        "skills/brainstorming/scripts/start-server.sh",
+        "skills/brainstorming/scripts/stop-server.sh"
+    ],
+    "dependencies": []
+},
+{
+    "name": "dispatching-parallel-agents",
+    "type": "skill",
+    "description": "Dispatching parallel agents skill for concurrent task execution",
+    "files": [
+        "skills/dispatching-parallel-agents/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "executing-plans",
+    "type": "skill",
+    "description": "Executing plans skill for implementing planned work",
+    "files": [
+        "skills/executing-plans/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "finishing-a-development-branch",
+    "type": "skill",
+    "description": "Finishing a development branch skill for wrapping up work",
+    "files": [
+        "skills/finishing-a-development-branch/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "fpf-reasoning",
+    "type": "skill",
+    "description": "First Principles Framework — structured reasoning for complex engineering, research, and mixed human/AI work with bounded contexts, evidence discipline, and multi-stakeholder alignment",
+    "files": [
+        "skills/fpf-reasoning/SKILL.md",
+        "skills/fpf-reasoning/CONCEPTS.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "receiving-code-review",
+    "type": "skill",
+    "description": "Receiving code review skill for handling feedback",
+    "files": [
+        "skills/receiving-code-review/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "requesting-code-review",
+    "type": "skill",
+    "description": "Requesting code review skill for initiating reviews",
+    "files": [
+        "skills/requesting-code-review/SKILL.md",
+        "skills/requesting-code-review/code-reviewer.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "subagent-driven-development",
+    "type": "skill",
+    "description": "Subagent-driven development skill for delegating work",
+    "files": [
+        "skills/subagent-driven-development/SKILL.md",
+        "skills/subagent-driven-development/implementer-prompt.md",
+        "skills/subagent-driven-development/spec-reviewer-prompt.md",
+        "skills/subagent-driven-development/code-quality-reviewer-prompt.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "systematic-debugging",
+    "type": "skill",
+    "description": "Systematic debugging skill for methodical issue resolution",
+    "files": [
+        "skills/systematic-debugging/SKILL.md",
+        "skills/systematic-debugging/root-cause-tracing.md",
+        "skills/systematic-debugging/defense-in-depth.md",
+        "skills/systematic-debugging/condition-based-waiting.md",
+        "skills/systematic-debugging/condition-based-waiting-example.ts",
+        "skills/systematic-debugging/test-academic.md",
+        "skills/systematic-debugging/test-pressure-1.md",
+        "skills/systematic-debugging/test-pressure-2.md",
+        "skills/systematic-debugging/test-pressure-3.md",
+        "skills/systematic-debugging/find-polluter.sh",
+        "skills/systematic-debugging/CREATION-LOG.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "test-driven-development",
+    "type": "skill",
+    "description": "Test-driven development skill for writing tests first",
+    "files": [
+        "skills/test-driven-development/SKILL.md",
+        "skills/test-driven-development/testing-anti-patterns.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "using-git-worktrees",
+    "type": "skill",
+    "description": "Using git worktrees skill for isolated development",
+    "files": [
+        "skills/using-git-worktrees/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "using-superpowers",
+    "type": "skill",
+    "description": "Using superpowers skill for leveraging the methodology",
+    "files": [
+        "skills/using-superpowers/SKILL.md",
+        "skills/using-superpowers/references/codex-tools.md",
+        "skills/using-superpowers/references/copilot-tools.md",
+        "skills/using-superpowers/references/gemini-tools.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "verification-before-completion",
+    "type": "skill",
+    "description": "Verification before completion skill for final checks",
+    "files": [
+        "skills/verification-before-completion/SKILL.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "writing-plans",
+    "type": "skill",
+    "description": "Writing plans skill for creating implementation plans",
+    "files": [
+        "skills/writing-plans/SKILL.md",
+        "skills/writing-plans/plan-document-reviewer-prompt.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "writing-skills",
+    "type": "skill",
+    "description": "Writing skills skill for creating effective skills",
+    "files": [
+        "skills/writing-skills/SKILL.md",
+        "skills/writing-skills/persuasion-principles.md",
+        "skills/writing-skills/anthropic-best-practices.md",
+        "skills/writing-skills/testing-skills-with-subagents.md",
+        "skills/writing-skills/graphviz-conventions.dot",
+        "skills/writing-skills/render-graphs.js",
+        "skills/writing-skills/examples/CLAUDE_MD_TESTING.md"
+    ],
+    "dependencies": []
+},
+{
+    "name": "developer",
+    "type": "profile",
+    "description": "Developer profile with task-type routing to Superpowers skills",
+     "files": [
+          "components/developer/AGENTS.md",
+          "components/developer/ocx.jsonc",
+          "components/developer/opencode.jsonc"
+     ],
+    "dependencies": [
+        "implementer", "spec-reviewer", "code-quality-reviewer", "code-reviewer",
+        "bmad-awareness", "brainstorming", "dispatching-parallel-agents", "executing-plans",
+        "finishing-a-development-branch", "fpf-reasoning", "receiving-code-review",
+        "requesting-code-review", "subagent-driven-development",
+        "systematic-debugging", "test-driven-development",
+        "using-git-worktrees", "using-superpowers",
+        "verification-before-completion", "writing-plans", "writing-skills",
+        "superpowers-plugin"
+    ]
+}
+  ]
+}

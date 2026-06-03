@@ -1,5 +1,14 @@
 # Superpowers Release Notes
 
+## v5.2.0 (2026-05-29)
+
+- **BREAKING**: Repo restructured to OCX-registry-only
+- Removed: All harness-specific plugins (.claude-plugin, .codex-plugin, .cursor-plugin, gemini-extension)
+- Removed: .omo, notepads, plans, tmp directories
+- Moved: hooks, scripts, assets, tests, docs → files/plugins/ (new superpowers-resources component)
+- Added: superpowers-resources plugin component to registry
+- `ocx build .` now produces 22 components
+
 ## v5.1.0 (2026-04-30)
 
 ### Removals

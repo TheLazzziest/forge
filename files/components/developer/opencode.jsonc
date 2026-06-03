@@ -1,0 +1,35 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "build",
+  "agent": {
+    "implementer": {
+      "description": "Implements tasks from plans with self-review and escalation",
+      "mode": "subagent",
+      "temperature": 0.1
+    },
+    "spec-reviewer": {
+      "description": "Verifies implementations match specifications — checks missing requirements, extra work, and misunderstandings",
+      "mode": "subagent",
+      "temperature": 0.1
+    },
+    "code-quality-reviewer": {
+      "description": "Reviews code quality after spec compliance passes — delegates detailed review to code-reviewer",
+      "mode": "subagent",
+      "temperature": 0.1
+    },
+    "code-reviewer": {
+      "description": "Senior code reviewer checking plan alignment, code quality, architecture, testing, and production readiness",
+      "mode": "subagent",
+      "temperature": 0.1
+    }
+  },
+  "mcp": {
+    // Requires EXA_API_KEY env var — get from https://dashboard.exa.ai/api-keys
+    "exa": { "type": "remote", "url": "https://mcp.exa.ai/mcp", "enabled": true },
+    "codegraph": { "command": "npx", "args": ["-y", "@colbymchenry/codegraph", "serve", "--mcp"] },
+    // Requires GITLAB_PERSONAL_ACCESS_TOKEN + GITLAB_API_URL env vars. Default API: https://gitlab.com/api/v4
+    "gitlab": { "command": "npx", "args": ["-y", "@zereight/mcp-gitlab"] },
+    // Requires GITHUB_PERSONAL_ACCESS_TOKEN env var — create at https://github.com/settings/personal-access-tokens/new
+    "github": { "type": "remote", "url": "https://api.githubcopilot.com/mcp/", "enabled": true }
+  }
+}
