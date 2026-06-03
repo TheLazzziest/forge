@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thelazzziest/forge/schemas/domain-skill",
+  "title": "Domain Skill Shape Declaration",
+  "description": "Machine-readable contract for domain knowledge skills. A skill with a valid domain-shapes.json at its root is treated as a domain skill. FPF reads this file to partition contexts, evaluate characteristics, and produce aligned outputs. If absent, FPF skips the skill entirely.",
+  "type": "object",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Domain name (e.g., customer-support, developer)"
+    },
+    "contexts": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Bounded contexts this domain operates in",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" }
+        },
+        "required": ["name"]
+      }
+    },
+    "characteristics": {
+      "type": "array",
+      "description": "Evaluation dimensions with scale and indicator",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "scale": { "type": "string", "description": "min...max, unit" },
+          "indicator": { "type": "string", "description": "How this is measured" }
+        },
+        "required": ["name"]
+      }
+    },
+    "criteria": {
+      "type": "object",
+      "description": "Decision rules for trade-off resolution",
+      "properties": {
+        "primary": { "type": "string" },
+        "constraints": { "type": "array", "items": { "type": "string" } },
+        "trade_offs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "output_forms": {
+      "type": "array",
+      "description": "Per-audience output definitions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "form": { "type": "string", "minLength": 1 },
+          "audience": { "type": "string", "minLength": 1 },
+          "content": { "type": "string" }
+        },
+        "required": ["form", "audience"]
+      }
+    },
+    "vocabulary": {
+      "type": "object",
+      "description": "Domain term → FPF concept mapping",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "required": ["domain", "contexts"]
+}

@@ -26,18 +26,23 @@ ocx add forge/fpf --profile <profile-name>
 
 ## Usage
 
-Load FPF **before** any domain role skill. FPF provides the reasoning engine; domain roles overlay domain-specific bounded contexts, characteristics, and output forms.
-
-Example profile composition:
+FPF is a reasoning skill. Domain knowledge skills (customer support, developer, analyst) declare what matters in their domain. Agent roles (your custom agent) layer on top with prompts and permissions.
 
 ```jsonc
-// opencode.jsonc
+// opencode.jsonc — skills for knowledge, agents for roles
 {
-  "skills": ["forge/fpf", "my-domain/customer-support"]
+  "skills": ["forge/fpf", "my-domain/customer-support-domains"],
+  "agent": {
+    "support-agent": {
+      "description": "Customer support agent using FPF reasoning",
+      "prompt": "You have access to FPF reasoning and customer support domain knowledge.",
+      "skills": ["forge/fpf", "my-domain/customer-support-domains"]
+    }
+  }
 }
 ```
 
-See `references/role-composition.md` for the composition model.
+See `references/domain-composition.md` for the composition model.
 
 ## How It Works
 
@@ -110,9 +115,9 @@ Data contracts in `assets/schemas/`. Templates in `assets/templates/`. Tool inte
 
 ### 4. Composition
 
-FPF is a **reasoning engine**. Domain roles are **overlays**. Any role skill declares its domain shapes — bounded contexts, characteristics, output forms, vocabulary — and FPF provides the reasoning fabric underneath. Roles declare *what* matters; FPF handles *how* to reason about it.
+FPF is a **reasoning engine**. Domain knowledge skills are **overlays**. Any domain skill declares its domain shapes — bounded contexts, characteristics, output forms, vocabulary — and FPF provides the reasoning fabric underneath. Domain skills declare *what* matters; FPF handles *how* to reason about it.
 
-When a domain role skill is loaded alongside FPF, the role's domain shapes inject as partition targets, evaluation criteria, and output templates. Depth tier scales independently based on problem complexity, not role identity. See `references/role-composition.md` for the full composition model.
+When a domain skill is loaded alongside FPF, the skill's domain shapes inject as partition targets, evaluation criteria, and output templates. Depth tier scales independently based on problem complexity, not role identity. See `references/domain-composition.md` for the full composition model.
 
 ## Architecture
 
@@ -126,6 +131,7 @@ fpf/
 │   │   ├── session-observation.schema.json
 │   │   ├── ab-experiment-config.schema.json
 │   │   ├── decision-log.schema.json
+│   │   ├── domain-skill.schema.json        # Domain shape contract
 │   │   ├── vocabulary-log.schema.json
 │   │   └── evidence-log.schema.json
 │   ├── templates/                    # Agent data collection files
@@ -138,7 +144,7 @@ fpf/
 │   ├── glossary.md                    # Canonical definitions of all FPF-domain terms
 │   ├── complexity-assessment.md       # 6-signal model, MCP interfaces, scoring protocol
 │   ├── pattern-catalog.md            # Full A-G pattern reference + entry families
-│   ├── role-composition.md           # How domain roles overlay FPF reasoning
+│   ├── domain-composition.md          # How domain knowledge overlays FPF reasoning
 │   ├── drr-guidance.md               # When to produce decisions, schema ref
 │   ├── uts-guidance.md               # When to stabilize vocabulary, schema ref
 │   └── evidence-guidance.md          # When to register evidence, maturity ref
@@ -159,7 +165,7 @@ fpf/
 | **External Analytics Tool** | `assets/schemas/prediction-log.schema.json`, `assets/schemas/session-observation.schema.json` | Validate agent-generated data before computing Brier/ATE |
 | **External Analytics Tool** | `assets/schemas/ab-experiment-config.schema.json` | Validate experiment design before causal estimation |
 | **External Analytics Tool** | `assets/fpf-assessor-manifest.json` → outputSchema | Validate tool results against expected output shape |
-| **Domain Role Author** | `references/role-composition.md`, `references/glossary.md` | Overlay model: declare domain shapes, FPF provides reasoning. Glossary for domain vocabulary mapping. |
+| **Domain Skill Author** | `references/domain-composition.md`, `references/glossary.md` | Define domain shapes (contexts, characteristics, criteria). FPF provides reasoning underneath. Glossary for domain vocabulary mapping. |
 | **FPF Pattern Author** | `references/pattern-catalog.md` → Part E (E.8, E.19) | How to write or review FPF patterns |
 
 ## How It Works (Diagrams)
@@ -182,7 +188,7 @@ flowchart LR
         GLOSSARY["glossary.md<br/>domain vocabulary"]
         COMPLEX["complexity-assessment.md<br/>signal scoring + MCP protocol"]
         PATTERNS["pattern-catalog.md<br/>A-G pattern lookup"]
-        ROLES["role-composition.md<br/>domain overlay model"]
+        DOMAIN["domain-composition.md<br/>domain knowledge overlay"]
         GUIDANCE["*-guidance.md<br/>drr / uts / evidence<br/>produce logic"]
     end
 
@@ -266,7 +272,7 @@ flowchart TB
 
 ### Adding Domain Roles
 
-Create a role skill that declares domain shapes. See `references/role-composition.md` for the overlay model. Role skills should NOT replicate FPF reasoning patterns — only declare what matters in their domain.
+Create a domain skill that declares domain shapes. See `references/domain-composition.md` for the overlay model. Domain skills should NOT replicate FPF reasoning patterns — only declare what matters in their domain.
 
 ### Implementing MCP Assessor
 

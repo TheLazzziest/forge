@@ -130,15 +130,15 @@ At session end, if user requests quality audit, present:
 
 Write per-session metrics to `assets/templates/session-observations.json` (schema: `assets/schemas/session-observation.schema.json`). Per-prediction calibration data to `assets/templates/prediction-log.jsonl` (schema: `assets/schemas/prediction-log.schema.json`). External tools aggregate across sessions via `fpf-assessor.assess-calibration` and `fpf-assessor.assess-causal-effect` MCP interfaces.
 
-## Role Composition
+## Domain Composition
 
-FPF is a **reasoning engine**. Domain roles are **overlays**. See `references/role-composition.md` for the composition model.
+FPF is a **reasoning engine**. Domain knowledge skills are **overlays**. See `references/domain-composition.md` for the composition model.
 
-In brief: any role skill declares its domain shapes — bounded contexts, characteristics, output forms, vocabulary — and FPF provides the reasoning fabric underneath. Roles declare *what* matters; FPF handles *how* to reason about it.
+In brief: any domain skill declares its domain shapes — bounded contexts, characteristics, output forms, vocabulary — and FPF provides the reasoning fabric underneath. Domain skills declare *what* matters; FPF handles *how* to reason about it.
 
-When a domain role skill is loaded alongside FPF:
+When a domain skill is loaded alongside FPF:
 1. FPF defaults run first (partition, separate, hold, tag, trace)
-2. Domain overlay injects: bounded contexts to partition into, characteristics to evaluate against, output forms to produce, vocabulary mappings
+2. Domain knowledge injects: bounded contexts to partition into, characteristics to evaluate against, output forms to produce, vocabulary mappings
 3. Depth tier scales as normal based on problem complexity, not role identity
 
 ## What NOT to Do
@@ -157,6 +157,6 @@ When a domain role skill is loaded alongside FPF:
 - **Glossary:** `references/glossary.md` — canonical definitions for all FPF-domain terms
 - **Complexity assessment:** `references/complexity-assessment.md` (signals, scoring, MCP interfaces)
 - **Pattern catalog:** `references/pattern-catalog.md`
-- **Role composition:** `references/role-composition.md`
+- **Domain composition:** `references/domain-composition.md`
 - **Author:** Anatoly Levenchuk
 - **Version:** May 2026
