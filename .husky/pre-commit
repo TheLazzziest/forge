@@ -1,1 +1,1 @@
-bun run validate
+bunx lint-staged
