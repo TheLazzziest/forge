@@ -1,3 +1,9 @@
+---
+name: hello-world
+description: An example skill demonstrating the OCX skill format
+license: MIT
+---
+
 # Hello World
 
 A simple example skill demonstrating the OCX skill format.
