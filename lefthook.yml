@@ -1,0 +1,5 @@
+pre-commit:
+  commands:
+    validate-registry:
+      run: bun run validate
+      glob: "registry.jsonc"
