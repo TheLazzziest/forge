@@ -39,15 +39,15 @@
       "files": [
         {
           "path": "profiles/developer/AGENTS.md",
-          "target": "profiles/developer/AGENTS.md",
+          "target": "developer/AGENTS.md",
         },
         {
           "path": "profiles/developer/ocx.jsonc",
-          "target": "profiles/developer/ocx.jsonc",
+          "target": "developer/ocx.jsonc",
         },
         {
           "path": "profiles/developer/opencode.jsonc",
-          "target": "profiles/developer/opencode.jsonc",
+          "target": "developer/opencode.jsonc",
         },
       ],
     },
