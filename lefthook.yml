@@ -1,7 +1,7 @@
-pre-commit:
+pre-push:
   commands:
     validate-registry:
-      run: bun run validate
+      run: "bun run validate"
       glob: "registry.jsonc"
 
 commit-msg:
