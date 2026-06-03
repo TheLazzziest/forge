@@ -1,7 +1,8 @@
 pre-push:
   commands:
     validate-registry:
-      run: "bun run validate"
+      # pre defined commands hangs lefthook
+      run: "bunx ocx build . --out dist"
       glob: "registry.jsonc"
 
 commit-msg:
