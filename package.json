@@ -1,17 +1,17 @@
 {
-	"name": "forge",
-	"private": true,
-	"scripts": {
-		"build": "ocx build . --out dist",
-		"deploy": "bun run build && wrangler deploy",
-		"dev": "bun run build && wrangler dev",
-		"validate": "ocx build . --out dist"
-	},
-	"devDependencies": {
-		"@commitlint/cli": "^21.0.2",
-		"@commitlint/config-conventional": "^21.0.2",
-		"lefthook": "^2.1.9",
-		"ocx": "^2.0.11",
-		"wrangler": "^4.79.0"
-	}
+  "name": "forge",
+  "private": true,
+  "scripts": {
+    "build": "bunx ocx build . --out dist",
+    "deploy": "bun run build && wrangler deploy",
+    "dev": "bun run build && wrangler dev",
+    "validate": "bunx ocx build . --out dist"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "lefthook": "^2.1.9",
+    "ocx": "^2.0.11",
+    "wrangler": "^4.79.0"
+  }
 }
