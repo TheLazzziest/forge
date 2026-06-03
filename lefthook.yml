@@ -7,4 +7,4 @@ pre-push:
 commit-msg:
   commands:
     commitlint:
-      run: "npx commitlint --edit {1}"
+      run: "bunx commitlint --edit {1}"
