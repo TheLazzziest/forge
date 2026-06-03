@@ -3,3 +3,8 @@ pre-commit:
     validate-registry:
       run: bun run validate
       glob: "registry.jsonc"
+
+commit-msg:
+  commands:
+    commitlint:
+      run: "npx commitlint --edit {1}"
