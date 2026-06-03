@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thelazzziest/forge/schemas/evidence-log",
+  "title": "FPF Evidence Log Record",
+  "description": "Per-claim and per-gap record for evidence maturity tracking and chain analysis. Each JSONL line is one claim or one gap, discriminated by record_type. External tools reconstruct evidence chains, track maturity transitions over time, and link to decisions and vocabulary.",
+  "type": "object",
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "description": "Unique record identifier"
+    },
+    "session_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Session in which this record was written"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 when record was written"
+    },
+    "record_type": {
+      "type": "string",
+      "enum": ["claim", "gap"],
+      "description": "Discriminator: claim = statement about truth, gap = missing evidence"
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["clear", "complicated", "complex", "chaotic", "confusion"],
+      "description": "Cynefin domain when this record was written"
+    },
+    "depth_tier": {
+      "type": "string",
+      "enum": ["implicit", "lite", "standard", "full"],
+      "description": "FPF depth tier when this record was written"
+    },
+    "claim": {
+      "type": "object",
+      "description": "Claim data. Present when record_type is 'claim'.",
+      "properties": {
+        "claim_text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The claim being made"
+        },
+        "maturity": {
+          "type": "string",
+          "enum": ["verified", "plausible", "assumed", "unknown"],
+          "description": "Current evidence maturity tag"
+        },
+        "source": {
+          "type": "string",
+          "description": "Who or what is the source"
+        },
+        "context": {
+          "type": "string",
+          "description": "Bounded context this claim belongs to"
+        },
+        "verified_date": {
+          "type": "string",
+          "format": "date",
+          "description": "If verified: when verification occurred"
+        },
+        "test_method": {
+          "type": "string",
+          "description": "If verified: how it was tested"
+        },
+        "reasoning_basis": {
+          "type": "string",
+          "description": "If plausible: why it's plausible"
+        },
+        "why_assumed": {
+          "type": "string",
+          "description": "If assumed: why it was taken as given"
+        },
+        "why_unknown": {
+          "type": "string",
+          "description": "If unknown: why no basis exists"
+        },
+        "cost_to_verify": {
+          "type": "string",
+          "description": "Effort/cost/risk to verify this claim"
+        },
+        "verification_path": {
+          "type": "string",
+          "description": "How this claim could be verified, if known"
+        },
+        "importance": {
+          "type": "string",
+          "description": "How critical this claim is to the decision"
+        },
+        "previous_maturity": {
+          "type": "string",
+          "enum": ["verified", "plausible", "assumed", "unknown"],
+          "description": "Previous maturity tag, if this record represents a transition"
+        },
+        "transition_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the maturity tag changed, if this is a transition record"
+        }
+      },
+      "required": ["claim_text", "maturity"]
+    },
+    "gap": {
+      "type": "object",
+      "description": "Gap data. Present when record_type is 'gap'.",
+      "properties": {
+        "gap_description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What evidence is missing"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        },
+        "related_claim_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Claim record IDs this gap relates to"
+        },
+        "impact_if_wrong": {
+          "type": "string",
+          "description": "Consequence if the missing evidence proves the claim false"
+        },
+        "cost_to_close": {
+          "type": "string",
+          "description": "Effort required to fill this gap"
+        },
+        "decision": {
+          "type": "string",
+          "enum": ["fill", "accept", "defer"],
+          "description": "fill = close the gap, accept = proceed anyway, defer = wait until closed"
+        },
+        "closed": {
+          "type": "boolean",
+          "description": "Whether this gap has been closed"
+        },
+        "closed_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this gap was closed, if applicable"
+        }
+      },
+      "required": ["gap_description", "priority"]
+    },
+    "c11_context": {
+      "type": "object",
+      "description": "Choose-now-vs-probe context for this record's parent decision",
+      "properties": {
+        "drr_id": { "type": "string", "description": "Decision this evidence supports" },
+        "gate_decision": { "type": "string", "enum": ["commit", "probe", "defer"] },
+        "rationale": { "type": "string" }
+      }
+    },
+    "links": {
+      "type": "object",
+      "description": "Cross-artifact links",
+      "properties": {
+        "drr_id": { "type": "string", "description": "Primary decision this evidence supports" },
+        "decision_log_ids": { "type": "array", "items": { "type": "string" }, "description": "All decision records linked to this evidence" },
+        "vocabulary_log_ids": { "type": "array", "items": { "type": "string" }, "description": "Vocabulary records related to this evidence" }
+      }
+    }
+  },
+  "required": [
+    "record_id",
+    "session_id",
+    "timestamp",
+    "record_type"
+  ],
+  "oneOf": [
+    { "required": ["claim"] },
+    { "required": ["gap"] }
+  ]
+}

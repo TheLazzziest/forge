@@ -1,0 +1,3 @@
+// FPF Prediction Log — append one JSON object per line per prediction
+// Schema: assets/schemas/prediction-log.schema.json
+// Used by: fpf-assessor.assess-calibration MCP tool

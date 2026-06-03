@@ -1,0 +1,4 @@
+// FPF Vocabulary Log — one JSON object per term entry per line
+// Schema: assets/schemas/vocabulary-log.schema.json
+// Grouping: terms share uts_id to reconstruct term sheets
+// Drift detection: compare sense_cell meanings for same term across timestamps

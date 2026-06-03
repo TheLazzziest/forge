@@ -1,0 +1,3 @@
+// FPF Decision Log — one JSON object per decision per line
+// Schema: assets/schemas/decision-log.schema.json
+// Links: evidence records → evidence_log_ids, vocabulary records → vocabulary_log_ids

@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thelazzziest/forge/schemas/session-observation",
+  "title": "FPF Session Observation",
+  "description": "Per-session observation record for Rubin Causal Model (RCM) estimation. Captures treatment assignment, covariates, and outcomes. External tools consume arrays of these records to estimate Average Treatment Effect (ATE) and related statistics.",
+  "type": "object",
+  "properties": {
+    "observation_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this observation"
+    },
+    "session_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Session in which this observation was collected"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when observation was recorded"
+    },
+    "treatment": {
+      "type": "boolean",
+      "description": "Treatment assignment: true = FPF skill active, false = FPF skill inactive (control)"
+    },
+    "covariates": {
+      "type": "object",
+      "description": "Pre-treatment covariates for propensity score estimation and stratification",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "enum": ["clear", "complicated", "complex", "chaotic", "confusion"],
+          "description": "Cynefin domain classification"
+        },
+        "complexity_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6,
+          "description": "Aggregate 6-signal complexity score"
+        },
+        "oracle_latency": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "How fast/cheap is real-world feedback? 0=fast, 1=slow"
+        },
+        "evidence_maturity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Are claims verified or assumed? 0=verified/testable, 1=assumed/untested"
+        },
+        "vocabulary_risk": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Is language stable? 0=stable, 1=breaking down"
+        },
+        "stake_breadth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "How many roles/agents involved? 0=single, 1=multiple"
+        },
+        "audience_divergence": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Multiple audiences need aligned output? 0=one, 1=multiple"
+        },
+        "reversibility": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "How costly is a wrong decision? 0=cheap, 1=irreversible"
+        }
+      },
+      "required": [
+        "domain",
+        "complexity_score",
+        "oracle_latency",
+        "evidence_maturity",
+        "vocabulary_risk",
+        "stake_breadth",
+        "audience_divergence",
+        "reversibility"
+      ]
+    },
+    "outcomes": {
+      "type": "object",
+      "description": "Post-treatment outcome measures for ATE estimation",
+      "properties": {
+        "gate_pass_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Proportion of 5 diagnostic gates passed (0.0-1.0)"
+        },
+        "depth_tier": {
+          "type": "string",
+          "enum": ["implicit", "lite", "standard", "full"],
+          "description": "FPF depth tier used"
+        },
+        "evidence_transitions": {
+          "type": "object",
+          "description": "Counts of evidence maturity transitions during session",
+          "properties": {
+            "assumed_to_verified": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of assumed claims that were verified"
+            },
+            "plausible_to_verified": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of plausible claims that were verified"
+            },
+            "unknown_to_plausible": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of unknown claims that became plausible"
+            }
+          },
+          "required": ["assumed_to_verified", "plausible_to_verified", "unknown_to_plausible"]
+        },
+        "convergence_delay": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of alternatives held before selection in the primary decision"
+        },
+        "drift_flags": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of times vocabulary drift was detected and corrected"
+        },
+        "user_override_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of times user forced a different depth tier"
+        }
+      },
+      "required": [
+        "gate_pass_rate",
+        "depth_tier",
+        "evidence_transitions",
+        "convergence_delay",
+        "drift_flags",
+        "user_override_count"
+      ]
+    }
+  },
+  "required": [
+    "observation_id",
+    "session_id",
+    "timestamp",
+    "treatment",
+    "covariates",
+    "outcomes"
+  ]
+}

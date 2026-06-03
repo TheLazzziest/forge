@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thelazzziest/forge/schemas/prediction-log",
+  "title": "FPF Prediction Log Record",
+  "description": "Per-prediction record for Brier score calibration analysis. Agents append one record per line in JSONL format. External tools consume this file to compute Brier score, reliability, resolution, and skill.",
+  "type": "object",
+  "properties": {
+    "prediction_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this prediction"
+    },
+    "session_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Session in which this prediction was made"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when prediction was made"
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Text of what was predicted"
+    },
+    "predicted_probability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Agent's confidence in the prediction (0.0 = certain false, 1.0 = certain true)"
+    },
+    "actual_outcome": {
+      "type": "boolean",
+      "description": "Whether the prediction was correct. null if oracle has not yet resolved."
+    },
+    "evidence_tag": {
+      "type": "string",
+      "enum": ["verified", "plausible", "assumed", "unknown"],
+      "description": "Evidence maturity of the claim at prediction time"
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["clear", "complicated", "complex", "chaotic", "confusion"],
+      "description": "Cynefin domain classification at prediction time"
+    },
+    "depth_tier": {
+      "type": "string",
+      "enum": ["implicit", "lite", "standard", "full"],
+      "description": "FPF depth tier at prediction time"
+    },
+    "resolution_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when oracle resolved. null if not yet resolved."
+    },
+    "resolution_latency_seconds": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Seconds between prediction and resolution. null if not yet resolved."
+    }
+  },
+  "required": [
+    "prediction_id",
+    "session_id",
+    "timestamp",
+    "claim",
+    "predicted_probability",
+    "actual_outcome",
+    "evidence_tag",
+    "domain",
+    "depth_tier"
+  ]
+}
