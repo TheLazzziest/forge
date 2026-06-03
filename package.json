@@ -1,6 +1,18 @@
 {
-  "name": "superpowers",
-  "version": "5.1.0",
-  "type": "module",
-  "main": ".opencode/plugins/superpowers.js"
+  "name": "forge",
+  "private": true,
+  "scripts": {
+    "build": "bunx ocx build . --out dist",
+    "deploy": "bun run build && wrangler deploy",
+    "dev": "bun run build && wrangler dev",
+    "validate": "bunx ocx build . --out dist",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "husky": "^9.1.7",
+    "ocx": "^2.0.11",
+    "wrangler": "^4.79.0"
+  }
 }

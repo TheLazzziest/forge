@@ -1,233 +1,150 @@
-# Superpowers
+# OCX Registry Starter
 
-Superpowers is a complete software development methodology for your coding agents, built on top of a set of composable skills and some initial instructions that make sure your agent uses them.
+A ready-to-deploy component registry for [OpenCode](https://opencode.ai).
 
-## Quickstart
+## One-Click Deploy
 
-Give your agent Superpowers: [Claude Code](#claude-code), [Codex CLI](#codex-cli), [Codex App](#codex-app), [Factory Droid](#factory-droid), [Gemini CLI](#gemini-cli), [OpenCode](#opencode), [Cursor](#cursor), [GitHub Copilot CLI](#github-copilot-cli).
+Deploy your registry instantly to your preferred platform:
 
-## How it works
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/YOUR_USERNAME/YOUR_REPO)
 
-It starts from the moment you fire up your coding agent. As soon as it sees that you're building something, it *doesn't* just jump into trying to write code. Instead, it steps back and asks you what you're really trying to do. 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/YOUR_REPO)
 
-Once it's teased a spec out of the conversation, it shows it to you in chunks short enough to actually read and digest. 
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/YOUR_USERNAME/YOUR_REPO)
 
-After you've signed off on the design, your agent puts together an implementation plan that's clear enough for an enthusiastic junior engineer with poor taste, no judgement, no project context, and an aversion to testing to follow. It emphasizes true red/green TDD, YAGNI (You Aren't Gonna Need It), and DRY. 
+> **After forking:** Update the deploy button URLs above to point to your repository.
 
-Next up, once you say "go", it launches a *subagent-driven-development* process, having agents work through each engineering task, inspecting and reviewing their work, and continuing forward. It's not uncommon for Claude to be able to work autonomously for a couple hours at a time without deviating from the plan you put together.
+## Quick Start
 
-There's a bunch more to it, but that's the core of the system. And because the skills trigger automatically, you don't need to do anything special. Your coding agent just has Superpowers.
+### 1. Install Dependencies
 
+```bash
+bun install
+```
 
-## Sponsorship
+### 2. Build the Registry
 
-If Superpowers has helped you do stuff that makes money and you are so inclined, I'd greatly appreciate it if you'd consider [sponsoring my opensource work](https://github.com/sponsors/obra).
+```bash
+bun run build
+```
 
-Thanks! 
+### 3. Local Development
 
-- Jesse
+```bash
+bun run dev
+```
 
+This starts a local server at `http://localhost:8787`.
 
-## Installation
+### 4. Deploy
 
-Installation differs by harness. If you use more than one, install Superpowers separately for each one.
+```bash
+bun run deploy
+```
 
-### Claude Code
+## Using Your Registry
 
-Superpowers is available via the [official Claude plugin marketplace](https://claude.com/plugins/superpowers)
+Once deployed, users can add components from your registry:
 
-#### Official Marketplace
+```bash
+# Add a component directly (using --from for ephemeral access)
+ocx add hello-world --from https://your-registry.workers.dev
 
-- Install the plugin from Anthropic's official marketplace:
+# Or add the registry permanently with a custom alias
+ocx registry add https://your-registry.workers.dev --name myreg
+ocx add myreg/hello-world
 
-  ```bash
-  /plugin install superpowers@claude-plugins-official
-  ```
+# Or install a profile
+ocx profile add my-profile --source myreg/my-profile --from https://your-registry.workers.dev --global
+```
 
-#### Superpowers Marketplace
+## Project Structure
 
-The Superpowers marketplace provides Superpowers and some other related plugins for Claude Code.
+```
+├── registry.jsonc         # Registry manifest
+├── files/                  # Component source files
+│   └── skills/
+│       └── hello-world/
+│           └── SKILL.md   # Example skill
+├── dist/                   # Built output (generated)
+├── wrangler.jsonc          # Cloudflare Workers config
+├── vercel.json             # Vercel config
+├── netlify.toml            # Netlify config
+└── AGENTS.md               # AI assistant guidelines
+```
 
-- Register the marketplace:
+## Adding Components
 
-  ```bash
-  /plugin marketplace add obra/superpowers-marketplace
-  ```
+### 1. Create your component file
 
-- Install the plugin from this marketplace:
+```bash
+# Skill
+mkdir -p files/skills/my-skill
+echo "# My Skill\n\nInstructions..." > files/skills/my-skill/SKILL.md
 
-  ```bash
-  /plugin install superpowers@superpowers-marketplace
-  ```
+# Plugin
+touch files/plugins/my-plugin.ts
 
-### Codex CLI
+# Agent
+touch files/agents/my-agent.md
+```
 
-Superpowers is available via the [official Codex plugin marketplace](https://github.com/openai/plugins).
+### 2. Register it in `registry.jsonc`
 
-- Open the plugin search interface:
+```json
+{
+  "components": [
+    {
+      "name": "my-skill",
+      "type": "skill",
+      "description": "What it does",
+      "files": ["skills/my-skill/SKILL.md"]
+    }
+  ]
+}
+```
 
-  ```bash
-  /plugins
-  ```
+### 3. Build and deploy
 
-- Search for Superpowers:
+```bash
+bun run build && bun run deploy
+```
 
-  ```bash
-  superpowers
-  ```
+## Component Types
 
-- Select `Install Plugin`.
+| Type | Purpose | Format |
+|------|---------|--------|
+| `skill` | AI behavior instructions | Markdown |
+| `plugin` | OpenCode extensions | TypeScript |
+| `agent` | Agent role definitions | Markdown |
+| `command` | Custom TUI commands | Markdown |
+| `tool` | Custom tool implementations | TypeScript |
+| `bundle` | Component collections | JSON |
+| `profile` | Shareable profile configuration | JSON |
 
-### Codex App
+See [AGENTS.md](./AGENTS.md) for detailed documentation on each type.
 
-Superpowers is available via the [official Codex plugin marketplace](https://github.com/openai/plugins).
+## Configuration
 
-- In the Codex app, click on Plugins in the sidebar.
-- You should see `Superpowers` in the Coding section.
-- Click the `+` next to Superpowers and follow the prompts.
+### Cloudflare Workers (default)
 
-### Factory Droid
+Edit `wrangler.jsonc` to customize your worker name and settings.
 
-- Register the marketplace:
+### Vercel
 
-  ```bash
-  droid plugin marketplace add https://github.com/obra/superpowers
-  ```
+Edit `vercel.json`. Build command and output directory are pre-configured.
 
-- Install the plugin:
+### Netlify
 
-  ```bash
-  droid plugin install superpowers@superpowers
-  ```
+Edit `netlify.toml`. Build command and publish directory are pre-configured.
 
-### Gemini CLI
+## Documentation
 
-- Install the extension:
-
-  ```bash
-  gemini extensions install https://github.com/obra/superpowers
-  ```
-
-- Update later:
-
-  ```bash
-  gemini extensions update superpowers
-  ```
-
-### OpenCode
-
-OpenCode uses its own plugin install; install Superpowers separately even if you
-already use it in another harness.
-
-- Tell OpenCode:
-
-  ```
-  Fetch and follow instructions from https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.opencode/INSTALL.md
-  ```
-
-- Detailed docs: [docs/README.opencode.md](docs/README.opencode.md)
-
-### Cursor
-
-- In Cursor Agent chat, install from marketplace:
-
-  ```text
-  /add-plugin superpowers
-  ```
-
-- Or search for "superpowers" in the plugin marketplace.
-
-### GitHub Copilot CLI
-
-- Register the marketplace:
-
-  ```bash
-  copilot plugin marketplace add obra/superpowers-marketplace
-  ```
-
-- Install the plugin:
-
-  ```bash
-  copilot plugin install superpowers@superpowers-marketplace
-  ```
-
-## The Basic Workflow
-
-1. **brainstorming** - Activates before writing code. Refines rough ideas through questions, explores alternatives, presents design in sections for validation. Saves design document.
-
-2. **using-git-worktrees** - Activates after design approval. Creates isolated workspace on new branch, runs project setup, verifies clean test baseline.
-
-3. **writing-plans** - Activates with approved design. Breaks work into bite-sized tasks (2-5 minutes each). Every task has exact file paths, complete code, verification steps.
-
-4. **subagent-driven-development** or **executing-plans** - Activates with plan. Dispatches fresh subagent per task with two-stage review (spec compliance, then code quality), or executes in batches with human checkpoints.
-
-5. **test-driven-development** - Activates during implementation. Enforces RED-GREEN-REFACTOR: write failing test, watch it fail, write minimal code, watch it pass, commit. Deletes code written before tests.
-
-6. **requesting-code-review** - Activates between tasks. Reviews against plan, reports issues by severity. Critical issues block progress.
-
-7. **finishing-a-development-branch** - Activates when tasks complete. Verifies tests, presents options (merge/PR/keep/discard), cleans up worktree.
-
-**The agent checks for relevant skills before any task.** Mandatory workflows, not suggestions.
-
-## What's Inside
-
-### Skills Library
-
-**Testing**
-- **test-driven-development** - RED-GREEN-REFACTOR cycle (includes testing anti-patterns reference)
-
-**Debugging**
-- **systematic-debugging** - 4-phase root cause process (includes root-cause-tracing, defense-in-depth, condition-based-waiting techniques)
-- **verification-before-completion** - Ensure it's actually fixed
-
-**Collaboration** 
-- **brainstorming** - Socratic design refinement
-- **writing-plans** - Detailed implementation plans
-- **executing-plans** - Batch execution with checkpoints
-- **dispatching-parallel-agents** - Concurrent subagent workflows
-- **requesting-code-review** - Pre-review checklist
-- **receiving-code-review** - Responding to feedback
-- **using-git-worktrees** - Parallel development branches
-- **finishing-a-development-branch** - Merge/PR decision workflow
-- **subagent-driven-development** - Fast iteration with two-stage review (spec compliance, then code quality)
-
-**Meta**
-- **writing-skills** - Create new skills following best practices (includes testing methodology)
-- **using-superpowers** - Introduction to the skills system
-
-## Philosophy
-
-- **Test-Driven Development** - Write tests first, always
-- **Systematic over ad-hoc** - Process over guessing
-- **Complexity reduction** - Simplicity as primary goal
-- **Evidence over claims** - Verify before declaring success
-
-Read [the original release announcement](https://blog.fsck.com/2025/10/09/superpowers/).
-
-## Contributing
-
-The general contribution process for Superpowers is below. Keep in mind that we don't generally accept contributions of new skills and that any updates to skills must work across all of the coding agents we support.
-
-1. Fork the repository
-2. Switch to the 'dev' branch
-3. Create a branch for your work
-4. Follow the `writing-skills` skill for creating and testing new and modified skills
-5. Submit a PR, being sure to fill in the pull request template.
-
-See `skills/writing-skills/SKILL.md` for the complete guide.
-
-## Updating
-
-Superpowers updates are somewhat coding-agent dependent, but are often automatic.
+- [AGENTS.md](./AGENTS.md) - Complete guide including [best practices](./AGENTS.md#best-practices)
+- [OCX CLI Documentation](https://ocx.kdco.dev/cli/commands)
+- [OpenCode Reference](https://ocx.kdco.dev/reference/opencode)
+- [Registry Protocol](https://ocx.kdco.dev/registries/protocol)
 
 ## License
 
-MIT License - see LICENSE file for details
-
-## Community
-
-Superpowers is built by [Jesse Vincent](https://blog.fsck.com) and the rest of the folks at [Prime Radiant](https://primeradiant.com).
-
-- **Discord**: [Join us](https://discord.gg/35wsABTejz) for community support, questions, and sharing what you're building with Superpowers
-- **Issues**: https://github.com/obra/superpowers/issues
-- **Release announcements**: [Sign up](https://primeradiant.com/superpowers/) to get notified about new versions
+MIT

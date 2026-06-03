@@ -1,7 +1,12 @@
-.worktrees/
-.private-journal/
-.claude/
-.DS_Store
+# Build output
+dist/
+
+# Dependencies
 node_modules/
-inspo
-triage/
+
+# Wrangler
+.wrangler/
+.dev.vars
+
+# OS
+.DS_Store
