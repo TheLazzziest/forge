@@ -1,11 +1,5 @@
 {
-  // OCX configuration for developer profile
-  // Registries: add via "ocx registry add <url> --name <alias>"
-  // Exclude patterns: files matching these globs are excluded from build
   "$schema": "https://ocx.kdco.dev/schemas/v2/ocx.json",
   "registries": {},
-  "exclude": [],
-  "dependencies": {
-    "skills": ["files/skills/fpf"],
-  },
+  "exclude": []
 }

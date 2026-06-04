@@ -10,9 +10,10 @@ description: Developer profile for Forge — iterative build from minimal shell,
 Developer profile for the Forge registry. Loads FPF as the reasoning backbone,
 then layers domain-specific development skills on top.
 
-## Loaded Skills
+## Loaded Skills & Plugins
 
 - **forge/fpf** — First Principles Framework reasoning backbone (loads first)
+- **forge/fpf-wiring** — Runtime domain-shapes validation on session start
 
 ## Task Routes
 

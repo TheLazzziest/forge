@@ -5,13 +5,12 @@
     "build": "bunx ocx build . --out dist",
     "deploy": "bun run build && wrangler deploy",
     "dev": "bun run build && wrangler dev",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "files/skills/*/SKILL.md": [
-      "bunx agentskills validate"
-    ],
-    "files/skills/*/assets/**/*.schema.json": "bunx ajv validate --spec=draft2020 -s schemas/agentskill-spec.json -d"
+    "files/skills/*/SKILL.md": "node scripts/validate-skill.mjs",
+    "**/*.schema.json": "node scripts/validate-schemas.mjs"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.0.2",
@@ -19,6 +18,7 @@
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
     "husky": "^9.1.7",
+    "js-yaml": "^4.1.0",
     "lint-staged": "^17.0.7",
     "ocx": "^2.0.11",
     "wrangler": "^4.79.0"

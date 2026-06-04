@@ -126,6 +126,7 @@ fpf/
 ├── SKILL.md                          # Agent instructions: defaults, heuristics, outputs, measurability
 ├── assets/
 │   ├── fpf-assessor-manifest.json    # MCP tools/list-compatible manifest (8 tools)
+│   ├── validate-domain-shapes.mjs    # Pure function: validates a domain-shapes.json against schema
 │   ├── schemas/                      # Data contracts for external tooling
 │   │   ├── prediction-log.schema.json
 │   │   ├── session-observation.schema.json
