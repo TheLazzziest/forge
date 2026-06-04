@@ -123,6 +123,7 @@ When a domain skill is loaded alongside FPF, the skill's domain shapes inject as
 
 ```
 fpf/
+├── domain-shapes.json               # FPF's own domain shape declaration (reference example)
 ├── SKILL.md                          # Agent instructions: defaults, heuristics, outputs, measurability
 ├── assets/
 │   ├── fpf-assessor-manifest.json    # MCP tools/list-compatible manifest (8 tools)
@@ -194,8 +195,9 @@ flowchart LR
     end
 
     subgraph L4["Level 4: machine-readable<br/>MCP tools + schemas + logs"]
+        DOMAIN["domain-shapes.json<br/>skill root declaration"]
         MANIFEST["fpf-assessor-manifest.json<br/>tool contracts"]
-        SCHEMAS["assets/schemas/*.schema.json<br/>6 data contracts"]
+        SCHEMAS["assets/schemas/*.schema.json<br/>7 data contracts"]
         TEMPLATES["assets/templates/*<br/>5 log files: predictions,<br/>observations, decisions,<br/>vocabulary, evidence"]
     end
 
@@ -235,13 +237,14 @@ flowchart TB
         EV["evidence-log.jsonl"]
     end
 
-    subgraph Schemas["Data Contracts (6 schemas)"]
+    subgraph Schemas["Data Contracts (7 schemas)"]
         S1["prediction-log.schema.json"]
         S2["session-observation.schema.json"]
         S3["ab-experiment-config.schema.json"]
         S4["decision-log.schema.json"]
-        S5["vocabulary-log.schema.json"]
-        S6["evidence-log.schema.json"]
+        S5["domain-skill.schema.json"]
+        S6["vocabulary-log.schema.json"]
+        S7["evidence-log.schema.json"]
     end
 
     subgraph Analytics["External Pipeline"]

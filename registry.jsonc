@@ -38,6 +38,7 @@
       "description": "First Principles Framework (FPF) — reasoning backbone for agents. Shapes cognitive defaults: partition bounded contexts, separate concerns, hold alternatives, tag evidence, produce aligned outputs. Load as foundation before any domain role skill.",
       "npmDependencies": ["ajv", "ajv-formats"],
       "files": [
+        "skills/fpf/domain-shapes.json",
         "skills/fpf/SKILL.md",
         "skills/fpf/references/glossary.md",
         "skills/fpf/references/complexity-assessment.md",

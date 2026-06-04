@@ -4,6 +4,24 @@ Produce a DRR when a normative choice, irreversible commitment, or rationale-for
 
 **Schema:** `assets/schemas/decision-log.schema.json`
 
+## Example
+
+*Decision: "Should our platform team buy, fine-tune, or build an agent stack?"*
+
+| Field | Value |
+|-------|-------|
+| drr_id | `drr-2026-06-001` |
+| decision_title | Agent stack acquisition strategy |
+| decision | Adopt a hybrid approach: buy base LLM API, fine-tune for domain-specific tasks, build orchestration layer in-house |
+| contexts | `[{name: "Product", meaning: "features and roadmap"}, {name: "Infrastructure", meaning: "hosting, latency, scaling"}, {name: "Safety", meaning: "alignment, guardrails, compliance"}]` |
+| alternatives | `["buy-full-stack", "buy-plus-fine-tune", "build-from-scratch", "hybrid-buy-fine-tune-build"]` |
+| selected_alternative | hybrid-buy-fine-tune-build |
+| criteria | `[{characteristic: "time-to-value", weight: "high", rating_selected: "medium"}, {characteristic: "controllability", weight: "high", rating_selected: "high"}, {characteristic: "cost", weight: "medium", rating_selected: "medium"}]` |
+| trade_offs | `[{sacrifice: "operational complexity", rationale: "hybrid increases ops surface but improves controllability"}]` |
+| c11_assessment | `{decision: "commit", rationale: "Three alternatives with distinct trade-offs evaluated. Key assumptions tagged for verification."}` |
+
+See `references/evidence-guidance.md` for supporting claims from the same decision.
+
 ## What Goes In
 
 | Field | Description |

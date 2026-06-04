@@ -4,6 +4,32 @@ Produce when terms mean different things in different contexts or vocabulary mus
 
 **Schema:** `assets/schemas/vocabulary-log.schema.json`
 
+## Example
+
+*Term: "latency" — means different things across infrastructure and product contexts.*
+
+| Field | Value |
+|-------|-------|
+| term_id | `term-latency-001` |
+| uts_id | `uts-agent-stack-001` |
+| term | latency |
+| sense_cell.context | Infrastructure |
+| sense_cell.meaning | Server response time (p95) from request dispatch to first byte |
+| sense_cell.differentiators | Measured in milliseconds; affects user experience directly |
+| risky_aliases | `[{alias: "lag", context_used: "engineering", risk: "confuses UI delay with server delay"}]` |
+| bridge_notes | When "latency" crosses from infrastructure to product, clarify: infra latency = p95 response time, product latency = time from user request to value delivery |
+
+Also add a second record for the same term in the Product context:
+
+| Field | Value |
+|-------|-------|
+| term_id | `term-latency-001` (same term, different context) |
+| sense_cell.context | Product |
+| sense_cell.meaning | Time from feature request to user-visible value delivery |
+| sense_cell.differentiators | Measured in weeks/months; affects planning and OKRs |
+
+Linked to DRR `drr-2026-06-001` from `references/drr-guidance.md`.
+
 ## What Goes In
 
 | Field | Description |

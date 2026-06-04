@@ -4,17 +4,45 @@ Produce when evidence maturity is uneven across claims or decision quality depen
 
 **Schema:** `assets/schemas/evidence-log.schema.json`
 
-## What Goes In
+## Example
 
-| Field | Description |
-|-------|-------------|
-| `record_id` | Unique record identifier |
-| `record_type` | `claim` (statement about truth) or `gap` (missing evidence) |
-| `claim.*` | Claim text, maturity tag (verified/plausible/assumed/unknown), source, context, verification details |
-| `claim.previous_maturity` | If this record represents a maturity transition, the previous tag |
-| `gap.*` | Gap description, priority, related claim IDs, impact if wrong, cost to close, fill/accept/defer, closed status |
-| `c11_context` | Choose-now-vs-probe gate: drr_id, gate_decision (commit/probe/defer), rationale |
-| `links` | Cross-artifact references: drr_id, decision_log_ids, vocabulary_log_ids |
+*Claims from the agent stack decision (see `references/drr-guidance.md` for the decision context).*
+
+**Claim (verified):**
+```
+record_id: evidence-claim-001
+record_type: claim
+claim.claim_text: "LLM API provider supports fine-tuning for domain-specific tasks"
+claim.maturity: verified
+claim.source: "Published API docs — confirmed via integration test"
+claim.context: Infrastructure
+claim.verified_date: "2026-06-01"
+```
+
+**Claim (assumed):**
+```
+record_id: evidence-claim-002
+record_type: claim
+claim.claim_text: "Building orchestration in-house gives more controllability than buying"
+claim.maturity: assumed
+claim.why_assumed: "Based on prior team experience with similar stacks — no formal comparison study"
+claim.importance: high
+claim.verification_path: "Run a spike comparing control surfaces of buy vs build"
+```
+
+**Gap (linked to assumed claim):**
+```
+record_id: evidence-gap-001
+record_type: gap
+gap.gap_description: "No formal comparison of control surfaces between commercial agent stacks and custom orchestration"
+gap.priority: high
+gap.related_claim_ids: ["evidence-claim-002"]
+gap.impact_if_wrong: "Chosen hybrid approach may not deliver the controllability expected"
+gap.cost_to_close: "2-week spike"
+gap.decision: defer
+```
+
+Linked to DRR `drr-2026-06-001` from `references/drr-guidance.md`.
 
 ## Maturity Transitions
 
