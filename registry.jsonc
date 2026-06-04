@@ -33,23 +33,68 @@
       "files": ["skills/hello-world/SKILL.md"],
     },
     {
+      "name": "fpf",
+      "type": "skill",
+      "description": "First Principles Framework (FPF) — reasoning backbone for agents. Shapes cognitive defaults: partition bounded contexts, separate concerns, hold alternatives, tag evidence, produce aligned outputs. Load as foundation before any domain role skill.",
+      "npmDependencies": ["ajv", "ajv-formats"],
+      "files": [
+        "skills/fpf/domain-shapes.json",
+        "skills/fpf/SKILL.md",
+        "skills/fpf/references/glossary.md",
+        "skills/fpf/references/complexity-assessment.md",
+        "skills/fpf/references/pattern-catalog.md",
+        "skills/fpf/references/domain-composition.md",
+        "skills/fpf/references/drr-guidance.md",
+        "skills/fpf/references/uts-guidance.md",
+        "skills/fpf/references/evidence-guidance.md",
+        "skills/fpf/assets/fpf-assessor-manifest.json",
+        "skills/fpf/assets/validate-domain-shapes.mjs",
+        "skills/fpf/assets/schemas/prediction-log.schema.json",
+        "skills/fpf/assets/schemas/session-observation.schema.json",
+        "skills/fpf/assets/schemas/ab-experiment-config.schema.json",
+        "skills/fpf/assets/schemas/domain-skill.schema.json",
+        "skills/fpf/assets/schemas/decision-log.schema.json",
+        "skills/fpf/assets/schemas/vocabulary-log.schema.json",
+        "skills/fpf/assets/schemas/evidence-log.schema.json",
+        "skills/fpf/assets/templates/prediction-log.jsonl",
+        "skills/fpf/assets/templates/session-observations.json",
+        "skills/fpf/assets/templates/decision-log.jsonl",
+        "skills/fpf/assets/templates/vocabulary-log.jsonl",
+        "skills/fpf/assets/templates/evidence-log.jsonl",
+      ],
+    },
+    {
+      "name": "fpf-wiring",
+      "type": "plugin",
+      "description": "FPF runtime wiring — validates domain-shapes.json in all loaded skills on session start. Requires fpf skill to be installed.",
+      "dependencies": ["fpf"],
+      "npmDependencies": ["ajv", "ajv-formats"],
+      "files": [
+        {
+          "path": "plugins/fpf-wiring.mjs",
+          "target": "plugins/fpf-wiring.mjs"
+        }
+      ],
+    },
+    {
       "name": "developer",
       "type": "profile",
       "description": "Developer profile for Forge — iterative build from minimal shell",
       "files": [
         {
           "path": "profiles/developer/AGENTS.md",
-          "target": "developer/AGENTS.md",
+          "target": "profiles/developer/AGENTS.md",
         },
         {
           "path": "profiles/developer/ocx.jsonc",
-          "target": "developer/ocx.jsonc",
+          "target": "profiles/developer/ocx.jsonc",
         },
         {
           "path": "profiles/developer/opencode.jsonc",
-          "target": "developer/opencode.jsonc",
+          "target": "profiles/developer/opencode.jsonc",
         },
       ],
+      "dependencies": ["fpf", "fpf-wiring"],
     },
   ],
 }

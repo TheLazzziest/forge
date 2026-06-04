@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thelazzziest/forge/schemas/fpf-assessor-manifest",
+  "title": "FPF Assessor MCP Server Tool Manifest",
+  "description": "Static tool definitions for the fpf-assessor MCP server. This file mirrors the MCP tools/list response format. A server may serve this verbatim, and clients can validate tool calls against these schemas without runtime discovery.",
+  "tools": [
+    {
+      "name": "assess-oracle-latency",
+      "title": "Oracle Latency Assessor",
+      "description": "Assess how fast and cheap real-world feedback is on decisions. Scores 0 (fast, cheap) or 1 (slow, expensive, noisy, risky) based on CI/CD, test automation, and monitoring infrastructure.",
+      "reliability": "HIGH",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string",
+            "description": "Absolute path to project root directory"
+          },
+          "context": {
+            "type": "string",
+            "description": "Optional: session or problem domain context for scoping"
+          }
+        },
+        "required": ["project_root"]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/commonOutputSchema"
+      }
+    },
+    {
+      "name": "assess-evidence-maturity",
+      "title": "Evidence Maturity Assessor",
+      "description": "Assess whether claims are verified or assumed. Scores 0 (verified/testable) or 1 (assumed/untested) based on test coverage, type strictness, and validation schema presence.",
+      "reliability": "HIGH",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string",
+            "description": "Absolute path to project root directory"
+          },
+          "context": {
+            "type": "string",
+            "description": "Optional: session or problem domain context for scoping"
+          }
+        },
+        "required": ["project_root"]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/commonOutputSchema"
+      }
+    },
+    {
+      "name": "assess-vocabulary-risk",
+      "title": "Vocabulary Risk Assessor",
+      "description": "Assess whether language is stable across parties. Scores 0 (stable) or 1 (breaking down) based on glossary presence, term consistency, and naming conventions.",
+      "reliability": "MEDIUM",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string",
+            "description": "Absolute path to project root directory"
+          },
+          "context": {
+            "type": "string",
+            "description": "Optional: session or problem domain context for scoping"
+          }
+        },
+        "required": ["project_root"]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/commonOutputSchema"
+      }
+    },
+    {
+      "name": "assess-stake-breadth",
+      "title": "Stake Breadth Assessor",
+      "description": "Assess how many roles, specialists, or agents are involved. Scores 0 (single) or 1 (multiple). Tool output is advisory — agent must confirm.",
+      "reliability": "LOW",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string",
+            "description": "Absolute path to project root directory"
+          },
+          "context": {
+            "type": "string",
+            "description": "Optional: session or problem domain context for scoping"
+          }
+        },
+        "required": ["project_root"]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/commonOutputSchema"
+      }
+    },
+    {
+      "name": "assess-audience-divergence",
+      "title": "Audience Divergence Assessor",
+      "description": "Assess how many audiences need aligned outputs. Scores 0 (one) or 1 (multiple). Tool output is advisory — agent must confirm.",
+      "reliability": "LOW",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string",
+            "description": "Absolute path to project root directory"
+          },
+          "context": {
+            "type": "string",
+            "description": "Optional: session or problem domain context for scoping"
+          }
+        },
+        "required": ["project_root"]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/commonOutputSchema"
+      }
+    },
+    {
+      "name": "assess-reversibility",
+      "title": "Reversibility Assessor",
+      "description": "Assess how costly a wrong decision is. Scores 0 (cheap) or 1 (irreversible/high-cost). Tool output is advisory — agent must confirm.",
+      "reliability": "LOW",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "project_root": {
+            "type": "string",
+            "description": "Absolute path to project root directory"
+          },
+          "context": {
+            "type": "string",
+            "description": "Optional: session or problem domain context for scoping"
+          }
+        },
+        "required": ["project_root"]
+      },
+      "outputSchema": {
+        "$ref": "#/definitions/commonOutputSchema"
+      }
+    },
+    {
+      "name": "assess-calibration",
+      "title": "Prediction Calibration Assessor",
+      "description": "Compute Brier score decomposition from a prediction log. Measures whether the agent's confidence matches correctness (calibration). Uses scikit-learn brier_score_loss as reference implementation. Requires resolved predictions (actual_outcome not null).",
+      "reliability": "HIGH",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "predictions": {
+            "type": "array",
+            "description": "Prediction records conforming to prediction-log.schema.json",
+            "items": {
+              "$ref": "https://github.com/thelazzziest/forge/schemas/prediction-log"
+            }
+          },
+          "stratify_by": {
+            "type": "array",
+            "description": "Optional: compute separate Brier scores per stratum",
+            "items": {
+              "type": "string",
+              "enum": ["domain", "depth_tier", "evidence_tag"]
+            }
+          }
+        },
+        "required": ["predictions"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "brier_score": { "type": "number", "minimum": 0, "maximum": 2, "description": "Brier score (original 1950 formulation: 0-2). Lower = better calibration." },
+          "reliability": { "type": "number", "description": "REL component: how close are predicted probabilities to observed frequencies? 0 = perfect." },
+          "resolution": { "type": "number", "description": "RES component: how much do predictions differ from baseline? Higher = better." },
+          "uncertainty": { "type": "number", "description": "UNC component: inherent outcome uncertainty. Baseline = o*(1-o)." },
+          "skill_score": { "type": "number", "description": "Brier Skill Score. 1 = perfect, 0 = baseline, negative = worse." },
+          "baseline_score": { "type": "number", "description": "Brier score of baseline model (constant prediction = mean outcome frequency)." },
+          "n_samples": { "type": "integer", "minimum": 0, "description": "Number of resolved predictions analyzed." },
+          "n_incomplete": { "type": "integer", "minimum": 0, "description": "Number of predictions not yet resolved." },
+          "by_stratum": { "type": "object", "description": "Brier scores per stratum if stratify_by provided." },
+          "diagnostics": { "type": "string", "description": "Interpretive guidance. Flags if n < 1000 for rare events (Wilks 2010)." },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1, "description": "Confidence in score accuracy." },
+          "rationale": { "type": "string", "description": "Why this score." }
+        },
+        "required": ["brier_score", "n_samples", "n_incomplete", "confidence", "rationale"]
+      }
+    },
+    {
+      "name": "assess-causal-effect",
+      "title": "Causal Effect Estimator",
+      "description": "Estimate Average Treatment Effect (ATE) of FPF on reasoning quality using Rubin Causal Model. Requires controlled experiment data (session-observation records) and experiment configuration (ab-experiment-config). Supports difference-in-means, doubly robust, propensity score matching, IPW, and regression adjustment estimators.",
+      "reliability": "MEDIUM",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "observations": {
+            "type": "array",
+            "description": "Per-session observation records conforming to session-observation.schema.json",
+            "items": {
+              "$ref": "https://github.com/thelazzziest/forge/schemas/session-observation"
+            }
+          },
+          "experiment_config": {
+            "$ref": "https://github.com/thelazzziest/forge/schemas/ab-experiment-config",
+            "description": "Experiment design configuration defining treatment/control and methodology"
+          },
+          "estimator": {
+            "type": "string",
+            "enum": ["difference_in_means", "doubly_robust", "propensity_score_matching", "inverse_probability_weighting", "regression_adjustment"],
+            "description": "Estimator to apply. difference_in_means for balanced RCT. doubly_robust recommended for general use."
+          }
+        },
+        "required": ["observations", "experiment_config", "estimator"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ate": { "type": "number", "description": "Average Treatment Effect: E[Y(1) - Y(0)]. Positive = FPF improves outcome." },
+          "standard_error": { "type": "number", "minimum": 0, "description": "Standard error of ATE estimate." },
+          "confidence_interval": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" }, "description": "95% CI [lower, upper]." },
+          "p_value": { "type": "number", "minimum": 0, "maximum": 1, "description": "Null: ATE = 0." },
+          "effect_size": { "type": "number", "description": "Cohen's d. Small=0.2, Medium=0.5, Large=0.8." },
+          "n_treatment": { "type": "integer", "minimum": 0 },
+          "n_control": { "type": "integer", "minimum": 0 },
+          "balance_diagnostics": {
+            "type": "object",
+            "properties": {
+              "standardized_mean_difference": { "type": "number", "description": "Max SMD. < 0.1 = good balance." },
+              "variance_ratio": { "type": "number", "description": "Treatment-to-control outcome variance ratio." }
+            },
+            "required": ["standardized_mean_difference", "variance_ratio"]
+          },
+          "att_by_stratum": { "type": "object", "description": "ATE per stratum if blocking variables configured." },
+          "assumption_diagnostics": { "type": "string", "description": "SUTVA, unconfoundedness, overlap assessment." },
+          "estimator_used": { "type": "string" },
+          "diagnostics": { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "rationale": { "type": "string" }
+        },
+        "required": ["ate", "standard_error", "confidence_interval", "p_value", "effect_size", "n_treatment", "n_control", "balance_diagnostics", "estimator_used", "confidence", "rationale"]
+      }
+    }
+  ],
+  "definitions": {
+    "commonOutputSchema": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Complexity signal score: 0 = low, 1 = high"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Tool's confidence in the score. MCP tools 0.80-0.99. Agent fallback 0.50-0.75."
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Why this score. Must cite specific evidence."
+        },
+        "probes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "What was checked to arrive at this score"
+        }
+      },
+      "required": ["score", "confidence", "rationale"]
+    }
+  }
+}

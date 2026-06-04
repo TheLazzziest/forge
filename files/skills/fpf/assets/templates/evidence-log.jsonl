@@ -1,0 +1,4 @@
+// FPF Evidence Log — one JSON object per claim or gap per line
+// Schema: assets/schemas/evidence-log.schema.json
+// record_type: "claim" for claims, "gap" for evidence gaps
+// Maturity transitions: write new record when tag changes, set previous_maturity

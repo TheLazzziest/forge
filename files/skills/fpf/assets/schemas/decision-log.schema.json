@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thelazzziest/forge/schemas/decision-log",
+  "title": "FPF Decision Log Record",
+  "description": "Per-decision record for temporal reasoning and graph analysis. Each JSONL line is one decision. External tools index by drr_id, timestamp, and linked artifacts to build decision timelines, causal chains, and audit trails.",
+  "type": "object",
+  "properties": {
+    "drr_id": {
+      "type": "string",
+      "description": "Unique decision identifier. Links to evidence-log and vocabulary-log records."
+    },
+    "session_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Session in which this decision was recorded"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 when decision was recorded"
+    },
+    "decision_title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "One-line title"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "accepted", "superseded"],
+      "description": "Current status"
+    },
+    "decision": {
+      "type": "string",
+      "minLength": 1,
+      "description": "One sentence: what was decided"
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["clear", "complicated", "complex", "chaotic", "confusion"],
+      "description": "Cynefin domain at decision time"
+    },
+    "depth_tier": {
+      "type": "string",
+      "enum": ["implicit", "lite", "standard", "full"],
+      "description": "FPF depth tier at decision time"
+    },
+    "contexts": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Bounded contexts active for this decision",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "meaning": { "type": "string", "minLength": 1 }
+        },
+        "required": ["name", "meaning"]
+      }
+    },
+    "problem_frame": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What problem was live, what was being mixed, why now"
+    },
+    "alternatives": {
+      "type": "array",
+      "minItems": 2,
+      "description": "Alternatives considered. Minimum 2; FPF default is >=3.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "selected_alternative": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Which alternative was chosen"
+    },
+    "criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "characteristic": { "type": "string", "minLength": 1 },
+          "weight": { "type": "string", "enum": ["high", "medium", "low"] },
+          "rating_selected": { "type": "string" },
+          "rating_best_alternative": { "type": "string" }
+        },
+        "required": ["characteristic", "weight"]
+      }
+    },
+    "trade_offs": {
+      "type": "array",
+      "description": "Trade-offs accepted with rationale",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sacrifice": { "type": "string", "minLength": 1 },
+          "rationale": { "type": "string", "minLength": 1 }
+        },
+        "required": ["sacrifice", "rationale"]
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "claims_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "assumed_claims": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Claim IDs that were assumed at decision time"
+        },
+        "gaps_accepted": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "gap": { "type": "string", "minLength": 1 },
+              "risk_if_wrong": { "type": "string" }
+            },
+            "required": ["gap"]
+          }
+        }
+      }
+    },
+    "c11_assessment": {
+      "type": "object",
+      "properties": {
+        "decision": { "type": "string", "enum": ["commit", "probe", "defer"] },
+        "rationale": { "type": "string", "minLength": 1 }
+      },
+      "required": ["decision", "rationale"]
+    },
+    "temporal": {
+      "type": "object",
+      "properties": {
+        "freshness": { "type": "string", "description": "Valid until date or trigger" },
+        "inertia": { "type": "string", "description": "What makes this hard to reverse" },
+        "next_review": { "type": "string", "format": "date" }
+      }
+    },
+    "responsibilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": { "type": "string", "minLength": 1 },
+          "responsibility": { "type": "string", "minLength": 1 },
+          "approval": { "type": "string", "enum": ["yes", "no", "consult"] }
+        },
+        "required": ["role", "responsibility"]
+      }
+    },
+    "aligned_outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "audience": { "type": "string", "minLength": 1 },
+          "form": { "type": "string", "minLength": 1 },
+          "message": { "type": "string", "minLength": 1 }
+        },
+        "required": ["audience", "form", "message"]
+      }
+    },
+    "links": {
+      "type": "object",
+      "description": "Cross-artifact links for temporal graph construction",
+      "properties": {
+        "superseded_by": { "type": "string", "description": "drr_id that supersedes this" },
+        "supersedes": { "type": "string", "description": "drr_id this decision supersedes" },
+        "evidence_log_ids": { "type": "array", "items": { "type": "string" }, "description": "Related evidence records" },
+        "vocabulary_log_ids": { "type": "array", "items": { "type": "string" }, "description": "Related vocabulary records" }
+      }
+    }
+  },
+  "required": [
+    "drr_id",
+    "session_id",
+    "timestamp",
+    "decision_title",
+    "status",
+    "decision",
+    "alternatives",
+    "selected_alternative",
+    "criteria"
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thelazzziest/forge/schemas/ab-experiment-config",
+  "title": "FPF A/B Experiment Configuration",
+  "description": "Experiment design configuration for causal inference via Rubin Causal Model (RCM). Defines treatment/control conditions, randomization strategy, outcome measures, and methodology assumptions. External tools consume this to set up, validate, and analyze controlled experiments measuring FPF effectiveness.",
+  "type": "object",
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this experiment"
+    },
+    "design": {
+      "type": "object",
+      "description": "Experiment design parameters",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["randomized_control_trial", "stratified", "crossover", "matched_pairs"],
+          "description": "Type of experimental design"
+        },
+        "treatment_condition": {
+          "type": "string",
+          "const": "fpf_skill_active",
+          "description": "Treatment: FPF skill loaded and active"
+        },
+        "control_condition": {
+          "type": "string",
+          "const": "fpf_skill_inactive",
+          "description": "Control: FPF skill not loaded"
+        },
+        "randomization_unit": {
+          "type": "string",
+          "const": "session",
+          "description": "Unit of randomization"
+        },
+        "blocking_variables": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "domain",
+              "complexity_score",
+              "oracle_latency",
+              "evidence_maturity",
+              "vocabulary_risk",
+              "stake_breadth",
+              "audience_divergence",
+              "reversibility"
+            ]
+          },
+          "description": "Covariates to block/stratify on for balance. Recommended: [domain, complexity_score]"
+        },
+        "sample_size_target": {
+          "type": "integer",
+          "minimum": 2,
+          "description": "Target number of observations. Brier score requires n > 1000 for rare events (Wilks 2010)."
+        },
+        "allocation_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Proportion allocated to treatment. 0.5 = balanced. 1.0 = all treatment."
+        }
+      },
+      "required": [
+        "type",
+        "treatment_condition",
+        "control_condition",
+        "randomization_unit",
+        "sample_size_target",
+        "allocation_ratio"
+      ]
+    },
+    "outcomes": {
+      "type": "object",
+      "description": "Outcome variables to measure",
+      "properties": {
+        "primary": {
+          "type": "string",
+          "const": "gate_pass_rate",
+          "description": "Primary outcome: proportion of 5 diagnostic gates passed"
+        },
+        "secondary": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "evidence_transitions.assumed_to_verified",
+              "evidence_transitions.plausible_to_verified",
+              "evidence_transitions.unknown_to_plausible",
+              "convergence_delay",
+              "drift_flags",
+              "user_override_count"
+            ]
+          },
+          "description": "Secondary outcomes of interest"
+        }
+      },
+      "required": ["primary", "secondary"]
+    },
+    "assumptions": {
+      "type": "object",
+      "description": "RCM assumptions that must hold for valid causal inference",
+      "properties": {
+        "sutva_justification": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable Unit Treatment Value Assumption justification: no interference between units, consistent treatment implementation. Default: sessions are independent, FPF loading status does not cross-contaminate across sessions."
+        },
+        "unconfoundedness_justification": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unconfoundedness/ignorability justification: treatment assignment independent of potential outcomes given covariates. Default: treatment randomized, covariates balanced by design."
+        },
+        "overlap_justification": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Overlap/common support justification: treatment feasible across all covariate ranges. Default: FPF can be loaded or not loaded in any session regardless of domain or complexity."
+        }
+      },
+      "required": [
+        "sutva_justification",
+        "unconfoundedness_justification",
+        "overlap_justification"
+      ]
+    },
+    "estimators": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "difference_in_means",
+          "doubly_robust",
+          "propensity_score_matching",
+          "inverse_probability_weighting",
+          "regression_adjustment"
+        ]
+      },
+      "minItems": 1,
+      "description": "Estimators to apply. difference_in_means is simplest, doubly_robust is recommended for most cases."
+    },
+    "start_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when experiment begins"
+    },
+    "end_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when experiment ends. null if ongoing."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "running", "completed"],
+      "description": "Current experiment status"
+    }
+  },
+  "required": [
+    "experiment_id",
+    "design",
+    "outcomes",
+    "assumptions",
+    "estimators",
+    "start_timestamp",
+    "status"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thelazzziest/forge/schemas/vocabulary-log",
+  "title": "FPF Vocabulary Log Record",
+  "description": "Per-term entry for vocabulary stabilization and drift detection. Each JSONL line is one term in one bounded context. External tools group by uts_id to reconstruct term sheets, or by term name + timestamp to detect semantic drift over time.",
+  "type": "object",
+  "properties": {
+    "term_id": {
+      "type": "string",
+      "description": "Unique term record identifier"
+    },
+    "uts_id": {
+      "type": "string",
+      "description": "Parent UTS identifier. Multiple terms with the same uts_id form one term sheet."
+    },
+    "session_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Session in which this term was defined"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 when term entry was recorded"
+    },
+    "term": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The term being defined"
+    },
+    "plain_name": {
+      "type": "string",
+      "description": "What non-specialists call this"
+    },
+    "tech_name": {
+      "type": "string",
+      "description": "What specialists call this"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "stable", "deprecated"],
+      "description": "Stabilization status"
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["clear", "complicated", "complex", "chaotic", "confusion"],
+      "description": "Cynefin domain when term was defined"
+    },
+    "depth_tier": {
+      "type": "string",
+      "enum": ["implicit", "lite", "standard", "full"],
+      "description": "FPF depth tier when term was defined"
+    },
+    "sense_cell": {
+      "type": "object",
+      "description": "Meaning of this term in one bounded context. Multiple sense_cell records (same term_id, different context) represent the full sense-cell map for this term.",
+      "properties": {
+        "context": { "type": "string", "minLength": 1 },
+        "meaning": { "type": "string", "minLength": 1 },
+        "differentiators": { "type": "string", "description": "How this meaning differs from same term in other contexts" }
+      },
+      "required": ["context", "meaning"]
+    },
+    "risky_aliases": {
+      "type": "array",
+      "description": "Alternate names that risk conflation",
+      "items": {
+        "type": "object",
+        "properties": {
+          "alias": { "type": "string", "minLength": 1 },
+          "context_used": { "type": "string" },
+          "risk": { "type": "string", "description": "What this alias conflates or hides" }
+        },
+        "required": ["alias"]
+      }
+    },
+    "bridge_notes": {
+      "type": "string",
+      "description": "How to translate this term when crossing context boundaries"
+    },
+    "links": {
+      "type": "object",
+      "description": "Cross-artifact links",
+      "properties": {
+        "decision_log_ids": { "type": "array", "items": { "type": "string" }, "description": "DRR-IDs where this term was critical" },
+        "evidence_log_ids": { "type": "array", "items": { "type": "string" }, "description": "Evidence records that tested or validated this term's meaning" }
+      }
+    }
+  },
+  "required": [
+    "term_id",
+    "uts_id",
+    "session_id",
+    "timestamp",
+    "term",
+    "sense_cell"
+  ]
+}

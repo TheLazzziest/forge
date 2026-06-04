@@ -1,0 +1,81 @@
+{
+  "domain": "meta-reasoning",
+  "contexts": [
+    {
+      "name": "Reasoning",
+      "description": "agent's internal cognitive loop — partitioning bounded contexts, separating concerns, holding alternatives before convergence"
+    },
+    {
+      "name": "Evidence",
+      "description": "claims with maturity tags (verified, plausible, assumed, unknown), verification paths, evidence chains"
+    },
+    {
+      "name": "Decision",
+      "description": "alternatives compared against explicit characteristics, trade-offs accepted, choose-now-vs-probe gate"
+    },
+    {
+      "name": "Vocabulary",
+      "description": "stabilizing terms across bounded contexts via sense cells, risky aliases, bridge notes"
+    },
+    {
+      "name": "Measurement",
+      "description": "calibration logs, session observations, experiment configs for causal effect estimation"
+    }
+  ],
+  "characteristics": [
+    {
+      "name": "context_coverage",
+      "scale": "0 to identified contexts",
+      "indicator": "how many relevant bounded contexts were partitioned before reasoning"
+    },
+    {
+      "name": "alternative_diversity",
+      "scale": "0 to held alternatives",
+      "indicator": "number of genuinely distinct options maintained before selection"
+    },
+    {
+      "name": "evidence_maturity",
+      "scale": "assumed to verified",
+      "indicator": "evidence tag transitions per session"
+    },
+    {
+      "name": "traceability_depth",
+      "scale": "single audience to multi-audience",
+      "indicator": "how many aligned output forms produced per reasoning body"
+    }
+  ],
+  "criteria": {
+    "primary": "reasoning quality (gate pass rate)",
+    "constraints": ["no premature convergence", "no semantic drift across contexts"],
+    "trade_offs": ["depth overhead vs task simplicity", "formal output vs conversational speed"]
+  },
+  "output_forms": [
+    {
+      "form": "bounded_context_map",
+      "audience": "all",
+      "content": "named frames with meanings and boundaries"
+    },
+    {
+      "form": "decision_rationale_record",
+      "audience": "engineering / management / audit",
+      "content": "decision, alternatives, criteria, evidence gaps, temporal window"
+    },
+    {
+      "form": "unified_term_sheet",
+      "audience": "cross-team / cross-agent",
+      "content": "term entries with sense cells, risky aliases, bridge notes"
+    },
+    {
+      "form": "evidence_register",
+      "audience": "decision-makers",
+      "content": "prioritized gaps, maturity summary, C.11 gate decision"
+    }
+  ],
+  "vocabulary": {
+    "bounded_context": "context",
+    "characteristic": "criteria_dimension",
+    "DRR": "decision_record",
+    "UTS": "term_sheet",
+    "C.11": "choose_probe_gate"
+  }
+}
